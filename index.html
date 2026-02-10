@@ -52,15 +52,8 @@ body {
   font-size: 12px;
 }
 
-.ad-slot-header {
-  border-bottom: 1px solid var(--border);
-}
-
-.ad-slot-footer {
-  border-top: 1px solid var(--border);
-  margin-top: auto;
-}
-
+.ad-slot-header { border-bottom: 1px solid var(--border); }
+.ad-slot-footer { border-top: 1px solid var(--border); margin-top: auto; }
 .ad-slot.premium-hidden { display: none; }
 
 /* ---- Header ---- */
@@ -73,11 +66,7 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
+.header-left { display: flex; align-items: center; gap: 16px; }
 
 .app-title {
   font-size: 20px;
@@ -87,11 +76,7 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.header-right { display: flex; align-items: center; gap: 12px; }
 
 .lang-toggle {
   display: flex;
@@ -110,10 +95,7 @@ body {
   transition: all 0.2s;
 }
 
-.lang-btn.active {
-  background: var(--primary);
-  color: white;
-}
+.lang-btn.active { background: var(--primary); color: white; }
 
 /* ---- Plan Badge ---- */
 .plan-badge {
@@ -129,19 +111,116 @@ body {
   transition: all 0.2s;
 }
 
-.plan-badge.free {
-  background: var(--surface2);
-  color: var(--text-muted);
+.plan-badge.free { background: var(--surface2); color: var(--text-muted); }
+.plan-badge.premium { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
+.plan-badge:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ---- Hero CTA Banner ---- */
+.hero-cta {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #c026d3 100%);
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.plan-badge.premium {
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
+.hero-cta.premium-hidden { display: none; }
+
+.hero-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.hero-cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-cta-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
   color: white;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  backdrop-filter: blur(4px);
 }
 
-.plan-badge:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+.hero-cta-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.hero-cta-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.hero-cta-features {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.hero-cta-feat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.9);
+}
+
+.hero-cta-feat::before {
+  content: '✓';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.hero-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 40px;
+  background: white;
+  color: #4f46e5;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.hero-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.3);
+}
+
+.hero-cta-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 10px;
 }
 
 /* ---- Usage Counter ---- */
@@ -156,7 +235,6 @@ body {
 }
 
 .usage-bar.premium-hidden { display: none; }
-
 .usage-label { color: var(--text-muted); }
 
 .usage-track {
@@ -168,16 +246,9 @@ body {
   overflow: hidden;
 }
 
-.usage-fill {
-  height: 100%;
-  background: var(--primary);
-  border-radius: 3px;
-  transition: width 0.3s;
-}
-
+.usage-fill { height: 100%; background: var(--primary); border-radius: 3px; transition: width 0.3s; }
 .usage-fill.warning { background: var(--warning); }
 .usage-fill.danger { background: var(--danger); }
-
 .usage-count { font-weight: 600; }
 
 .usage-upgrade {
@@ -195,11 +266,7 @@ body {
 .usage-upgrade:hover { opacity: 0.9; }
 
 /* ---- Main ---- */
-.main-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px;
-}
+.main-container { max-width: 1200px; margin: 0 auto; padding: 24px; }
 
 /* Upload Zone */
 .upload-zone {
@@ -215,11 +282,6 @@ body {
 .upload-zone:hover, .upload-zone.dragover {
   border-color: var(--primary);
   background: rgba(99, 102, 241, 0.05);
-}
-
-.upload-zone.disabled {
-  opacity: 0.4;
-  pointer-events: none;
 }
 
 .upload-icon { font-size: 48px; margin-bottom: 12px; }
@@ -242,123 +304,38 @@ body {
 .upload-btn:hover { background: var(--primary-hover); }
 
 /* Settings Panel */
-.settings-panel {
-  background: var(--surface);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 24px;
-  display: none;
-}
-
+.settings-panel { background: var(--surface); border-radius: 16px; padding: 24px; margin-bottom: 24px; display: none; }
 .settings-panel.show { display: block; }
-
-.settings-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-@media (max-width: 768px) {
-  .settings-grid { grid-template-columns: 1fr; }
-}
-
-.setting-section {
-  background: var(--surface2);
-  border-radius: 12px;
-  padding: 20px;
-}
-
-.setting-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.setting-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
+.settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 768px) { .settings-grid { grid-template-columns: 1fr; } }
+.setting-section { background: var(--surface2); border-radius: 12px; padding: 20px; }
+.setting-title { font-size: 15px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.setting-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .setting-row:last-child { margin-bottom: 0; }
-
-.setting-label {
-  font-size: 13px;
-  color: var(--text-muted);
-  min-width: 80px;
-}
+.setting-label { font-size: 13px; color: var(--text-muted); min-width: 80px; }
 
 input[type="text"], input[type="number"], input[type="color"], select {
-  padding: 8px 12px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  font-size: 13px;
-  outline: none;
-  flex: 1;
+  padding: 8px 12px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 6px; color: var(--text); font-size: 13px; outline: none; flex: 1;
 }
 
 input[type="color"] { width: 40px; height: 36px; padding: 2px; cursor: pointer; flex: none; }
 input[type="range"] { flex: 1; accent-color: var(--primary); }
 select { cursor: pointer; }
+.checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; }
+.checkbox-label input[type="checkbox"] { accent-color: var(--primary); width: 16px; height: 16px; }
 
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-.checkbox-label input[type="checkbox"] {
-  accent-color: var(--primary);
-  width: 16px;
-  height: 16px;
-}
-
-/* Logo upload */
 .logo-upload-area {
-  border: 1px dashed var(--border);
-  border-radius: 8px;
-  padding: 12px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 12px;
-  color: var(--text-muted);
-  transition: border-color 0.2s;
+  border: 1px dashed var(--border); border-radius: 8px; padding: 12px;
+  text-align: center; cursor: pointer; font-size: 12px; color: var(--text-muted); transition: border-color 0.2s;
 }
-
 .logo-upload-area:hover { border-color: var(--primary); }
 .logo-preview { max-height: 40px; margin-top: 8px; }
 
 /* Action Buttons */
-.action-bar {
-  display: none;
-  gap: 12px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-
+.action-bar { display: none; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
 .action-bar.show { display: flex; }
-
-.action-btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
+.action-btn { padding: 12px 24px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
 .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-primary { background: var(--primary); color: white; }
 .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
@@ -370,56 +347,14 @@ select { cursor: pointer; }
 .btn-outline:hover:not(:disabled) { background: var(--surface2); }
 
 /* Image Grid */
-.image-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.image-card {
-  background: var(--surface);
-  border-radius: 12px;
-  overflow: hidden;
-  border: 2px solid transparent;
-  transition: border-color 0.2s;
-  position: relative;
-}
-
+.image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.image-card { background: var(--surface); border-radius: 12px; overflow: hidden; border: 2px solid transparent; transition: border-color 0.2s; position: relative; }
 .image-card.selected { border-color: var(--primary); }
-
-.image-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px;
-  background: var(--surface2);
-}
-
-.image-card-name {
-  font-size: 12px;
-  color: var(--text-muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 160px;
-}
-
+.image-card-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--surface2); }
+.image-card-name { font-size: 12px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 160px; }
 .image-card-checkbox { accent-color: var(--primary); width: 18px; height: 18px; cursor: pointer; }
-
-.image-card-preview {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4/3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: repeating-conic-gradient(#1a1a2e 0% 25%, #252540 0% 50%) 0 0 / 20px 20px;
-  overflow: hidden;
-}
-
+.image-card-preview { position: relative; width: 100%; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; background: repeating-conic-gradient(#1a1a2e 0% 25%, #252540 0% 50%) 0 0 / 20px 20px; overflow: hidden; }
 .image-card-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
 .image-card-status { padding: 6px 12px; font-size: 11px; text-align: center; }
 .status-pending { color: var(--text-muted); }
 .status-processing { color: var(--warning); }
@@ -427,346 +362,67 @@ select { cursor: pointer; }
 .status-error { color: var(--danger); }
 
 /* Progress Bar */
-.progress-bar-container {
-  background: var(--surface);
-  border-radius: 12px;
-  padding: 16px 24px;
-  margin-bottom: 24px;
-  display: none;
-}
-
+.progress-bar-container { background: var(--surface); border-radius: 12px; padding: 16px 24px; margin-bottom: 24px; display: none; }
 .progress-bar-container.show { display: block; }
-
 .progress-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
-
-.progress-track {
-  height: 8px;
-  background: var(--surface2);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary), #c084fc);
-  border-radius: 4px;
-  transition: width 0.3s ease;
-  width: 0%;
-}
+.progress-track { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #c084fc); border-radius: 4px; transition: width 0.3s ease; width: 0%; }
 
 /* Select All */
-.select-all-bar {
-  display: none;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 16px;
-  background: var(--surface);
-  border-radius: 10px;
-  margin-bottom: 16px;
-  font-size: 13px;
-}
-
+.select-all-bar { display: none; justify-content: space-between; align-items: center; padding: 8px 16px; background: var(--surface); border-radius: 10px; margin-bottom: 16px; font-size: 13px; }
 .select-all-bar.show { display: flex; }
 
 /* View tabs */
-.view-tabs {
-  display: flex;
-  gap: 4px;
-  background: var(--bg);
-  border-radius: 6px;
-  padding: 2px;
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-}
-
-.view-tab {
-  padding: 4px 10px;
-  border: none;
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
+.view-tabs { display: flex; gap: 4px; background: var(--bg); border-radius: 6px; padding: 2px; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 2; }
+.view-tab { padding: 4px 10px; border: none; background: transparent; color: var(--text-muted); font-size: 10px; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
 .view-tab.active { background: var(--primary); color: white; }
 
 /* Spinner */
-.spinner {
-  width: 32px;
-  height: 32px;
-  border: 3px solid var(--surface2);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  position: absolute;
-  z-index: 2;
-}
-
+.spinner { width: 32px; height: 32px; border: 3px solid var(--surface2); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; position: absolute; z-index: 2; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* Toast */
-.toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  padding: 12px 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 13px;
-  z-index: 1000;
-  transform: translateY(100px);
-  opacity: 0;
-  transition: all 0.3s;
-}
-
+.toast { position: fixed; bottom: 24px; right: 24px; padding: 12px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-size: 13px; z-index: 1000; transform: translateY(100px); opacity: 0; transition: all 0.3s; }
 .toast.show { transform: translateY(0); opacity: 1; }
 
 /* ---- Pricing Modal ---- */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 900;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
-}
-
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 900; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
 .modal-overlay.show { display: flex; }
-
-.pricing-modal {
-  background: var(--surface);
-  border-radius: 20px;
-  padding: 40px;
-  max-width: 800px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-}
-
-.modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: var(--surface2);
-  border: none;
-  color: var(--text);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.modal-subtitle {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 32px;
-}
-
-.pricing-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-@media (max-width: 600px) {
-  .pricing-cards { grid-template-columns: 1fr; }
-}
-
-.pricing-card {
-  background: var(--surface2);
-  border-radius: 16px;
-  padding: 28px;
-  border: 2px solid transparent;
-  transition: border-color 0.2s;
-}
-
-.pricing-card.featured {
-  border-color: var(--gold);
-  position: relative;
-}
-
-.pricing-card.featured::before {
-  content: attr(data-badge);
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
-  color: white;
-  padding: 4px 16px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.pricing-plan-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.pricing-price {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.pricing-price span {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--text-muted);
-}
-
-.pricing-desc {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-}
-
-.pricing-features {
-  list-style: none;
-  margin-bottom: 24px;
-}
-
-.pricing-features li {
-  padding: 6px 0;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.pricing-features li::before {
-  content: '✓';
-  color: var(--success);
-  font-weight: 700;
-}
-
-.pricing-cta {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.pricing-cta.current {
-  background: var(--surface);
-  color: var(--text-muted);
-  cursor: default;
-}
-
-.pricing-cta.upgrade {
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
-  color: white;
-}
-
-.pricing-cta.upgrade:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
+.pricing-modal { background: var(--surface); border-radius: 20px; padding: 40px; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; }
+.modal-close { position: absolute; top: 16px; right: 16px; background: var(--surface2); border: none; color: var(--text); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+.modal-title { text-align: center; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.modal-subtitle { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 32px; }
+.pricing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 600px) { .pricing-cards { grid-template-columns: 1fr; } }
+.pricing-card { background: var(--surface2); border-radius: 16px; padding: 28px; border: 2px solid transparent; transition: border-color 0.2s; }
+.pricing-card.featured { border-color: var(--gold); position: relative; }
+.pricing-card.featured::before { content: attr(data-badge); position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; padding: 4px 16px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+.pricing-plan-name { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.pricing-price { font-size: 36px; font-weight: 700; margin-bottom: 4px; }
+.pricing-price span { font-size: 14px; font-weight: 400; color: var(--text-muted); }
+.pricing-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+.pricing-features { list-style: none; margin-bottom: 24px; }
+.pricing-features li { padding: 6px 0; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+.pricing-features li::before { content: '✓'; color: var(--success); font-weight: 700; }
+.pricing-cta { width: 100%; padding: 12px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.pricing-cta.current { background: var(--surface); color: var(--text-muted); cursor: default; }
+.pricing-cta.upgrade { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
+.pricing-cta.upgrade:hover { opacity: 0.9; transform: translateY(-1px); }
 
 /* ---- Limit Reached Overlay ---- */
-.limit-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 800;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
-}
-
+.limit-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 800; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
 .limit-overlay.show { display: flex; }
-
-.limit-card {
-  background: var(--surface);
-  border-radius: 20px;
-  padding: 40px;
-  max-width: 440px;
-  width: 90%;
-  text-align: center;
-}
-
+.limit-card { background: var(--surface); border-radius: 20px; padding: 40px; max-width: 440px; width: 90%; text-align: center; }
 .limit-icon { font-size: 48px; margin-bottom: 16px; }
-
-.limit-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.limit-desc {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 24px;
-  line-height: 1.6;
-}
-
-.limit-cta {
-  padding: 14px 32px;
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-bottom: 12px;
-}
-
+.limit-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.limit-desc { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+.limit-cta { padding: 14px 32px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; }
 .limit-cta:hover { opacity: 0.9; }
-
-.limit-dismiss {
-  display: block;
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 13px;
-  cursor: pointer;
-  margin: 0 auto;
-}
+.limit-dismiss { display: block; background: none; border: none; color: var(--text-muted); font-size: 13px; cursor: pointer; margin: 0 auto; }
 
 /* ---- Footer ---- */
-.app-footer {
-  text-align: center;
-  padding: 24px;
-  color: var(--text-muted);
-  font-size: 12px;
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
-}
-
-.app-footer a {
-  color: var(--primary);
-  text-decoration: none;
-}
+.app-footer { text-align: center; padding: 24px; color: var(--text-muted); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; }
+.app-footer a { color: var(--primary); text-decoration: none; }
 
 .hidden { display: none !important; }
 </style>
@@ -775,11 +431,8 @@ select { cursor: pointer; }
 
 <!-- ===== AD: Header Banner ===== -->
 <div class="ad-slot ad-slot-header" id="adHeader">
-  <!-- AdSense: ヘッダー広告 (あなたのスロットIDに差し替えてください) -->
-  <ins class="adsbygoogle"
-       style="display:inline-block;width:728px;height:90px"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot="XXXXXXXXXX"></ins>
+  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
@@ -800,19 +453,36 @@ select { cursor: pointer; }
   </div>
 </div>
 
+<!-- ===== HERO CTA BANNER (Free users only) ===== -->
+<div class="hero-cta" id="heroCta">
+  <div class="hero-cta-inner">
+    <div class="hero-cta-badge" data-i18n="heroBadge">期間限定キャンペーン</div>
+    <div class="hero-cta-title" data-i18n="heroTitle">PRO プランでもっと自由に。月額たったの ¥490</div>
+    <div class="hero-cta-desc" data-i18n="heroDesc">無制限の背景除去 & コピーライト挿入。広告なしの快適な作業環境で、あなたの作業効率を最大化しましょう。</div>
+    <div class="hero-cta-features">
+      <span class="hero-cta-feat" data-i18n="heroFeat1">処理枚数 無制限</span>
+      <span class="hero-cta-feat" data-i18n="heroFeat2">広告なし</span>
+      <span class="hero-cta-feat" data-i18n="heroFeat3">優先サポート</span>
+    </div>
+    <button class="hero-cta-btn" onclick="openPricingModal()">
+      <span data-i18n="heroBtn">✦ PRO にアップグレード</span>
+    </button>
+    <div class="hero-cta-sub" data-i18n="heroSub">いつでもキャンセル可能 ・ カード決済対応</div>
+  </div>
+</div>
+
 <!-- ===== USAGE BAR (Free users only) ===== -->
 <div class="usage-bar" id="usageBar">
   <span class="usage-label" data-i18n="usageLabel">本日の残り回数:</span>
   <div class="usage-track">
     <div class="usage-fill" id="usageFill" style="width: 100%"></div>
   </div>
-  <span class="usage-count" id="usageCount">5 / 5</span>
+  <span class="usage-count" id="usageCount">1 / 1</span>
   <button class="usage-upgrade" onclick="openPricingModal()" data-i18n="upgradeBtn">PRO にアップグレード</button>
 </div>
 
 <!-- ===== MAIN ===== -->
 <div class="main-container">
-  <!-- Upload Zone -->
   <div class="upload-zone" id="uploadZone">
     <div class="upload-icon">📁</div>
     <div class="upload-text" data-i18n="uploadText">画像をドラッグ＆ドロップ、またはクリックして選択</div>
@@ -821,7 +491,6 @@ select { cursor: pointer; }
     <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
   </div>
 
-  <!-- Settings Panel -->
   <div class="settings-panel" id="settingsPanel">
     <div class="settings-grid">
       <div class="setting-section">
@@ -833,19 +502,10 @@ select { cursor: pointer; }
           </label>
         </div>
       </div>
-
       <div class="setting-section">
         <div class="setting-title">©️ <span data-i18n="crTextTitle">コピーライト（テキスト）</span></div>
-        <div class="setting-row">
-          <label class="checkbox-label">
-            <input type="checkbox" id="enableCopyrightText" checked>
-            <span data-i18n="enableCrText">テキストを有効にする</span>
-          </label>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label" data-i18n="crLabel">テキスト</span>
-          <input type="text" id="copyrightText" value="© 2026 Your Name" placeholder="© 2026 Your Name">
-        </div>
+        <div class="setting-row"><label class="checkbox-label"><input type="checkbox" id="enableCopyrightText" checked><span data-i18n="enableCrText">テキストを有効にする</span></label></div>
+        <div class="setting-row"><span class="setting-label" data-i18n="crLabel">テキスト</span><input type="text" id="copyrightText" value="© 2026 Your Name" placeholder="© 2026 Your Name"></div>
         <div class="setting-row">
           <span class="setting-label" data-i18n="posLabel">位置</span>
           <select id="copyrightPosition">
@@ -857,36 +517,19 @@ select { cursor: pointer; }
             <option value="center" data-i18n-opt="posC">中央</option>
           </select>
         </div>
-        <div class="setting-row">
-          <span class="setting-label" data-i18n="sizeLabel">サイズ</span>
-          <input type="range" id="copyrightSize" min="8" max="72" value="24">
-          <span id="sizeValue">24px</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label" data-i18n="colorLabel">色</span>
-          <input type="color" id="copyrightColor" value="#ffffff">
-        </div>
-        <div class="setting-row">
-          <span class="setting-label" data-i18n="opacityLabel">不透明度</span>
-          <input type="range" id="copyrightOpacity" min="10" max="100" value="50">
-          <span id="opacityValue">50%</span>
-        </div>
+        <div class="setting-row"><span class="setting-label" data-i18n="sizeLabel">サイズ</span><input type="range" id="copyrightSize" min="8" max="72" value="24"><span id="sizeValue">24px</span></div>
+        <div class="setting-row"><span class="setting-label" data-i18n="colorLabel">色</span><input type="color" id="copyrightColor" value="#ffffff"></div>
+        <div class="setting-row"><span class="setting-label" data-i18n="opacityLabel">不透明度</span><input type="range" id="copyrightOpacity" min="10" max="100" value="50"><span id="opacityValue">50%</span></div>
       </div>
-
       <div class="setting-section">
         <div class="setting-title">🖼️ <span data-i18n="crLogoTitle">コピーライト（ロゴ）</span></div>
-        <div class="setting-row">
-          <label class="checkbox-label">
-            <input type="checkbox" id="enableCopyrightLogo">
-            <span data-i18n="enableCrLogo">ロゴ画像を有効にする</span>
-          </label>
-        </div>
+        <div class="setting-row"><label class="checkbox-label"><input type="checkbox" id="enableCopyrightLogo"><span data-i18n="enableCrLogo">ロゴ画像を有効にする</span></label></div>
         <div class="logo-upload-area" id="logoUploadArea">
           <span data-i18n="logoUpload">クリックしてロゴ画像を選択（PNG推奨）</span>
           <input type="file" id="logoInput" accept="image/*" style="display:none">
           <div id="logoPreviewContainer"></div>
         </div>
-        <div class="setting-row" style="margin-top: 12px;">
+        <div class="setting-row" style="margin-top:12px;">
           <span class="setting-label" data-i18n="logoPos">位置</span>
           <select id="logoPosition">
             <option value="bottom-right" data-i18n-opt="posBR">右下</option>
@@ -897,77 +540,36 @@ select { cursor: pointer; }
             <option value="center" data-i18n-opt="posC">中央</option>
           </select>
         </div>
-        <div class="setting-row">
-          <span class="setting-label" data-i18n="logoSizeLabel">サイズ(%)</span>
-          <input type="range" id="logoSize" min="5" max="50" value="15">
-          <span id="logoSizeValue">15%</span>
-        </div>
-        <div class="setting-row">
-          <span class="setting-label" data-i18n="logoOpacityLabel">不透明度</span>
-          <input type="range" id="logoOpacity" min="10" max="100" value="60">
-          <span id="logoOpacityValue">60%</span>
-        </div>
+        <div class="setting-row"><span class="setting-label" data-i18n="logoSizeLabel">サイズ(%)</span><input type="range" id="logoSize" min="5" max="50" value="15"><span id="logoSizeValue">15%</span></div>
+        <div class="setting-row"><span class="setting-label" data-i18n="logoOpacityLabel">不透明度</span><input type="range" id="logoOpacity" min="10" max="100" value="60"><span id="logoOpacityValue">60%</span></div>
       </div>
-
       <div class="setting-section">
         <div class="setting-title">💾 <span data-i18n="outputTitle">出力設定</span></div>
-        <div class="setting-row">
-          <span class="setting-label" data-i18n="formatLabel">形式</span>
-          <select id="outputFormat">
-            <option value="png">PNG</option>
-            <option value="jpeg">JPEG</option>
-          </select>
-        </div>
-        <div class="setting-row" id="jpegQualityRow">
-          <span class="setting-label" data-i18n="qualityLabel">品質</span>
-          <input type="range" id="jpegQuality" min="10" max="100" value="90">
-          <span id="qualityValue">90%</span>
-        </div>
+        <div class="setting-row"><span class="setting-label" data-i18n="formatLabel">形式</span><select id="outputFormat"><option value="png">PNG</option><option value="jpeg">JPEG</option></select></div>
+        <div class="setting-row" id="jpegQualityRow"><span class="setting-label" data-i18n="qualityLabel">品質</span><input type="range" id="jpegQuality" min="10" max="100" value="90"><span id="qualityValue">90%</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Select All Bar -->
   <div class="select-all-bar" id="selectAllBar">
-    <label class="checkbox-label">
-      <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()">
-      <span data-i18n="selectAll">すべて選択</span>
-      <span id="selectionCount">(0)</span>
-    </label>
+    <label class="checkbox-label"><input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()"><span data-i18n="selectAll">すべて選択</span><span id="selectionCount">(0)</span></label>
   </div>
 
-  <!-- Action Buttons -->
   <div class="action-bar" id="actionBar">
-    <button class="action-btn btn-primary" id="processBtn" onclick="startProcessing()">
-      ▶ <span data-i18n="processBtn">一括処理を開始</span>
-    </button>
-    <button class="action-btn btn-success" id="downloadBtn" onclick="downloadAll()" disabled>
-      ⬇ <span data-i18n="downloadBtn">一括ダウンロード</span>
-    </button>
-    <button class="action-btn btn-outline" id="addMoreBtn" onclick="document.getElementById('fileInput').click()">
-      ＋ <span data-i18n="addMore">追加</span>
-    </button>
-    <button class="action-btn btn-danger" id="clearBtn" onclick="clearAll()">
-      🗑 <span data-i18n="clearBtn">クリア</span>
-    </button>
+    <button class="action-btn btn-primary" id="processBtn" onclick="startProcessing()">▶ <span data-i18n="processBtn">一括処理を開始</span></button>
+    <button class="action-btn btn-success" id="downloadBtn" onclick="downloadAll()" disabled>⬇ <span data-i18n="downloadBtn">一括ダウンロード</span></button>
+    <button class="action-btn btn-outline" id="addMoreBtn" onclick="document.getElementById('fileInput').click()">＋ <span data-i18n="addMore">追加</span></button>
+    <button class="action-btn btn-danger" id="clearBtn" onclick="clearAll()">🗑 <span data-i18n="clearBtn">クリア</span></button>
   </div>
 
-  <!-- Progress Bar -->
   <div class="progress-bar-container" id="progressContainer">
-    <div class="progress-info">
-      <span id="progressText" data-i18n="progressText">処理中...</span>
-      <span id="progressPercent">0%</span>
-    </div>
-    <div class="progress-track">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
+    <div class="progress-info"><span id="progressText" data-i18n="progressText">処理中...</span><span id="progressPercent">0%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
   </div>
 
-  <!-- Image Grid -->
   <div class="image-grid" id="imageGrid"></div>
 </div>
 
-<!-- ===== Footer ===== -->
 <div class="app-footer">
   <p>© 2026 BG Remover & Copyright Tool. All rights reserved.</p>
   <p style="margin-top:4px"><a href="#" onclick="openPricingModal();return false;" data-i18n="footerUpgrade">無制限で使うには PRO プランへ</a></p>
@@ -975,11 +577,8 @@ select { cursor: pointer; }
 
 <!-- ===== AD: Footer Banner ===== -->
 <div class="ad-slot ad-slot-footer" id="adFooter">
-  <!-- AdSense: フッター広告 (あなたのスロットIDに差し替えてください) -->
-  <ins class="adsbygoogle"
-       style="display:inline-block;width:728px;height:90px"
-       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-       data-ad-slot="XXXXXXXXXX"></ins>
+  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins>
   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
@@ -990,23 +589,21 @@ select { cursor: pointer; }
     <div class="modal-title" data-i18n="pricingTitle">プランを選択</div>
     <div class="modal-subtitle" data-i18n="pricingSubtitle">あなたに合ったプランでスタートしましょう</div>
     <div class="pricing-cards">
-      <!-- Free Plan -->
       <div class="pricing-card">
         <div class="pricing-plan-name" data-i18n="planFreeName">Free</div>
         <div class="pricing-price">¥0</div>
-        <div class="pricing-desc" data-i18n="planFreeDesc">個人利用に最適</div>
+        <div class="pricing-desc" data-i18n="planFreeDesc">お試し利用に最適</div>
         <ul class="pricing-features">
-          <li data-i18n="feat1Free">1日5枚まで処理可能</li>
+          <li data-i18n="feat1Free">1日1枚まで処理可能</li>
           <li data-i18n="feat2Free">背景除去＋コピーライト</li>
           <li data-i18n="feat3Free">PNG / JPEG 出力</li>
           <li data-i18n="feat4Free">広告あり</li>
         </ul>
         <button class="pricing-cta current" data-i18n="currentPlan">現在のプラン</button>
       </div>
-      <!-- Pro Plan -->
       <div class="pricing-card featured" data-badge="POPULAR">
         <div class="pricing-plan-name" data-i18n="planProName">PRO</div>
-        <div class="pricing-price">¥980 <span data-i18n="perMonth">/ 月</span></div>
+        <div class="pricing-price">¥490 <span data-i18n="perMonth">/ 月</span></div>
         <div class="pricing-desc" data-i18n="planProDesc">プロフェッショナル向け</div>
         <ul class="pricing-features">
           <li data-i18n="feat1Pro">処理枚数無制限</li>
@@ -1025,8 +622,8 @@ select { cursor: pointer; }
   <div class="limit-card">
     <div class="limit-icon">🔒</div>
     <div class="limit-title" data-i18n="limitTitle">本日の無料枠を使い切りました</div>
-    <div class="limit-desc" data-i18n="limitDesc">PRO プランなら枚数無制限・広告なしで使えます。明日まで待つか、アップグレードしてすぐに続けましょう。</div>
-    <button class="limit-cta" onclick="closeLimitOverlay();openPricingModal();" data-i18n="limitCta">PRO プランを見る</button>
+    <div class="limit-desc" data-i18n="limitDesc">PRO プラン（¥490/月）なら枚数無制限・広告なしで使えます。明日まで待つか、アップグレードしてすぐに続けましょう。</div>
+    <button class="limit-cta" onclick="closeLimitOverlay();openPricingModal();" data-i18n="limitCta">PRO プランを見る（¥490/月）</button>
     <button class="limit-dismiss" onclick="closeLimitOverlay()" data-i18n="limitDismiss">明日また来る</button>
   </div>
 </div>
@@ -1035,15 +632,12 @@ select { cursor: pointer; }
 
 <script>
 // ================================================================
-//  CONFIG — ここを差し替えてください
+//  CONFIG
 // ================================================================
 const CONFIG = {
-  DAILY_FREE_LIMIT: 5,
-  PRO_PRICE_JPY: 980,
-  // Stripe: 本番の Publishable Key を設定
+  DAILY_FREE_LIMIT: 1,
+  PRO_PRICE_JPY: 490,
   STRIPE_PK: 'pk_test_XXXXXXXXXXXXXXXXXXXXXXXX',
-  // Stripe: Checkout Session を作る自前のAPIエンドポイント
-  // (GitHub Pages は静的サイトのため別途 Stripe サーバーが必要)
   STRIPE_CHECKOUT_URL: 'https://your-api.example.com/create-checkout-session',
 };
 
@@ -1075,28 +669,33 @@ const i18n = {
     toastDone: '処理が完了しました',
     toastDownloading: 'ダウンロード中...',
     loadingModel: 'AIモデルを読み込み中（初回のみ時間がかかります）...',
-    // Plan / Pricing
     planFree: 'Free プラン', planPro: '✦ PRO',
     usageLabel: '本日の残り回数:',
     upgradeBtn: 'PRO にアップグレード',
     pricingTitle: 'プランを選択',
     pricingSubtitle: 'あなたに合ったプランでスタートしましょう',
     planFreeName: 'Free', planProName: 'PRO',
-    planFreeDesc: '個人利用に最適', planProDesc: 'プロフェッショナル向け',
+    planFreeDesc: 'お試し利用に最適', planProDesc: 'プロフェッショナル向け',
     perMonth: '/ 月',
-    feat1Free: '1日5枚まで処理可能', feat2Free: '背景除去＋コピーライト',
+    feat1Free: '1日1枚まで処理可能', feat2Free: '背景除去＋コピーライト',
     feat3Free: 'PNG / JPEG 出力', feat4Free: '広告あり',
     feat1Pro: '処理枚数無制限', feat2Pro: '背景除去＋コピーライト',
     feat3Pro: 'PNG / JPEG 出力', feat4Pro: '広告なし',
     currentPlan: '現在のプラン',
     upgradeCta: 'PRO にアップグレード',
     limitTitle: '本日の無料枠を使い切りました',
-    limitDesc: 'PRO プランなら枚数無制限・広告なしで使えます。明日まで待つか、アップグレードしてすぐに続けましょう。',
-    limitCta: 'PRO プランを見る',
+    limitDesc: 'PRO プラン（¥490/月）なら枚数無制限・広告なしで使えます。明日まで待つか、アップグレードしてすぐに続けましょう。',
+    limitCta: 'PRO プランを見る（¥490/月）',
     limitDismiss: '明日また来る',
     footerUpgrade: '無制限で使うには PRO プランへ',
     limitReached: '無料枠の上限に達しました',
     welcomePro: 'PRO プランへようこそ！',
+    heroBadge: '期間限定キャンペーン',
+    heroTitle: 'PRO プランでもっと自由に。月額たったの ¥490',
+    heroDesc: '無制限の背景除去 & コピーライト挿入。広告なしの快適な作業環境で、あなたの作業効率を最大化しましょう。',
+    heroFeat1: '処理枚数 無制限', heroFeat2: '広告なし', heroFeat3: '優先サポート',
+    heroBtn: '✦ PRO にアップグレード',
+    heroSub: 'いつでもキャンセル可能 ・ カード決済対応',
   },
   en: {
     uploadText: 'Drag & drop images here, or click to select',
@@ -1128,21 +727,27 @@ const i18n = {
     pricingTitle: 'Choose Your Plan',
     pricingSubtitle: 'Pick the plan that works best for you',
     planFreeName: 'Free', planProName: 'PRO',
-    planFreeDesc: 'Perfect for personal use', planProDesc: 'For professionals',
+    planFreeDesc: 'Perfect for trying out', planProDesc: 'For professionals',
     perMonth: '/ mo',
-    feat1Free: 'Up to 5 images per day', feat2Free: 'Background removal + copyright',
+    feat1Free: '1 image per day', feat2Free: 'Background removal + copyright',
     feat3Free: 'PNG / JPEG output', feat4Free: 'Ads included',
     feat1Pro: 'Unlimited processing', feat2Pro: 'Background removal + copyright',
     feat3Pro: 'PNG / JPEG output', feat4Pro: 'No ads',
     currentPlan: 'Current Plan',
     upgradeCta: 'Upgrade to PRO',
     limitTitle: "You've reached today's free limit",
-    limitDesc: 'Upgrade to PRO for unlimited processing and no ads. Wait until tomorrow or upgrade now to continue.',
-    limitCta: 'View PRO Plan',
+    limitDesc: 'Upgrade to PRO (¥490/mo) for unlimited processing and no ads. Wait until tomorrow or upgrade now.',
+    limitCta: 'View PRO Plan (¥490/mo)',
     limitDismiss: "I'll come back tomorrow",
     footerUpgrade: 'Go unlimited with PRO',
     limitReached: 'Daily limit reached',
     welcomePro: 'Welcome to PRO!',
+    heroBadge: 'Limited Time Offer',
+    heroTitle: 'Go PRO — Unlimited access for just ¥490/mo',
+    heroDesc: 'Unlimited background removal & copyright insertion. Work faster in an ad-free environment.',
+    heroFeat1: 'Unlimited processing', heroFeat2: 'No ads', heroFeat3: 'Priority support',
+    heroBtn: '✦ Upgrade to PRO',
+    heroSub: 'Cancel anytime ・ Credit card accepted',
   }
 };
 
@@ -1169,52 +774,22 @@ function t(key) { return i18n[currentLang][key] || key; }
 // ================================================================
 //  Freemium / Usage Tracking
 // ================================================================
-function getTodayKey() {
-  return 'bgr_usage_' + new Date().toISOString().slice(0, 10);
-}
-
-function getUsedToday() {
-  return parseInt(localStorage.getItem(getTodayKey()) || '0', 10);
-}
-
-function addUsage(count) {
-  const used = getUsedToday() + count;
-  localStorage.setItem(getTodayKey(), used.toString());
-  updateUsageBar();
-}
-
-function getRemainingToday() {
-  if (isPremium()) return Infinity;
-  return Math.max(0, CONFIG.DAILY_FREE_LIMIT - getUsedToday());
-}
-
-function isPremium() {
-  // 本番では JWT トークン検証やサーバー問い合わせに置き換える
-  return localStorage.getItem('bgr_plan') === 'pro';
-}
-
-function setPremium(val) {
-  localStorage.setItem('bgr_plan', val ? 'pro' : 'free');
-  updatePlanBadge();
-  updateUsageBar();
-  updateAds();
-}
+function getTodayKey() { return 'bgr_usage_' + new Date().toISOString().slice(0, 10); }
+function getUsedToday() { return parseInt(localStorage.getItem(getTodayKey()) || '0', 10); }
+function addUsage(count) { localStorage.setItem(getTodayKey(), (getUsedToday() + count).toString()); updateUsageBar(); }
+function getRemainingToday() { return isPremium() ? Infinity : Math.max(0, CONFIG.DAILY_FREE_LIMIT - getUsedToday()); }
+function isPremium() { return localStorage.getItem('bgr_plan') === 'pro'; }
+function setPremium(val) { localStorage.setItem('bgr_plan', val ? 'pro' : 'free'); updatePlanBadge(); updateUsageBar(); updateAds(); updateHeroCta(); }
 
 function updateUsageBar() {
   const bar = document.getElementById('usageBar');
   const fill = document.getElementById('usageFill');
   const count = document.getElementById('usageCount');
-
-  if (isPremium()) {
-    bar.classList.add('premium-hidden');
-    return;
-  }
+  if (isPremium()) { bar.classList.add('premium-hidden'); return; }
   bar.classList.remove('premium-hidden');
-
   const used = getUsedToday();
   const remaining = CONFIG.DAILY_FREE_LIMIT - used;
   const pct = Math.max(0, (remaining / CONFIG.DAILY_FREE_LIMIT) * 100);
-
   fill.style.width = pct + '%';
   fill.className = 'usage-fill' + (pct <= 20 ? ' danger' : pct <= 50 ? ' warning' : '');
   count.textContent = `${Math.max(0, remaining)} / ${CONFIG.DAILY_FREE_LIMIT}`;
@@ -1224,16 +799,8 @@ function updatePlanBadge() {
   const badge = document.getElementById('planBadge');
   const icon = document.getElementById('planBadgeIcon');
   const text = document.getElementById('planBadgeText');
-
-  if (isPremium()) {
-    badge.className = 'plan-badge premium';
-    icon.textContent = '✦';
-    text.textContent = t('planPro');
-  } else {
-    badge.className = 'plan-badge free';
-    icon.textContent = '⚡';
-    text.textContent = t('planFree');
-  }
+  if (isPremium()) { badge.className = 'plan-badge premium'; icon.textContent = '✦'; text.textContent = t('planPro'); }
+  else { badge.className = 'plan-badge free'; icon.textContent = '⚡'; text.textContent = t('planFree'); }
 }
 
 function updateAds() {
@@ -1242,75 +809,40 @@ function updateAds() {
   document.getElementById('adFooter').classList.toggle('premium-hidden', hide);
 }
 
+function updateHeroCta() {
+  document.getElementById('heroCta').classList.toggle('premium-hidden', isPremium());
+}
+
 // ================================================================
 //  Pricing Modal
 // ================================================================
-function openPricingModal() {
-  document.getElementById('pricingModal').classList.add('show');
-}
-
-function closePricingModal() {
-  document.getElementById('pricingModal').classList.remove('show');
-}
-
-document.getElementById('pricingModal').addEventListener('click', (e) => {
-  if (e.target === e.currentTarget) closePricingModal();
-});
+function openPricingModal() { document.getElementById('pricingModal').classList.add('show'); }
+function closePricingModal() { document.getElementById('pricingModal').classList.remove('show'); }
+document.getElementById('pricingModal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closePricingModal(); });
 
 // ================================================================
 //  Limit Overlay
 // ================================================================
-function showLimitOverlay() {
-  document.getElementById('limitOverlay').classList.add('show');
-}
-
-function closeLimitOverlay() {
-  document.getElementById('limitOverlay').classList.remove('show');
-}
+function showLimitOverlay() { document.getElementById('limitOverlay').classList.add('show'); }
+function closeLimitOverlay() { document.getElementById('limitOverlay').classList.remove('show'); }
 
 // ================================================================
 //  Stripe Checkout
 // ================================================================
 async function startStripeCheckout() {
   const btn = document.getElementById('stripeCheckoutBtn');
-  btn.disabled = true;
-  btn.textContent = '...';
-
+  btn.disabled = true; btn.textContent = '...';
   try {
-    // === 方法A: Stripe Checkout（サーバーが必要） ===
-    // 自前のAPIでCheckout Sessionを作成し、そのURLにリダイレクト
-    //
-    // const res = await fetch(CONFIG.STRIPE_CHECKOUT_URL, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     priceId: 'price_XXXXXXXXXXXXXXXX', // Stripe Dashboard で作成した Price ID
-    //     successUrl: window.location.href + '?checkout=success',
-    //     cancelUrl: window.location.href + '?checkout=cancel',
-    //   })
-    // });
-    // const { sessionId } = await res.json();
-    // const stripe = Stripe(CONFIG.STRIPE_PK);
-    // await stripe.redirectToCheckout({ sessionId });
-
-    // === 方法B: Stripe Payment Links（サーバー不要・最も簡単） ===
-    // Stripe Dashboard > Payment Links で作成したURLに飛ばすだけ
+    // Stripe Payment Links（サーバー不要・最も簡単）
     window.open('https://buy.stripe.com/XXXXXXXXXXXXXX', '_blank');
-
-    // デモ用: ローカルで PRO に切り替え
-    // 本番では Stripe Webhook → サーバー → ユーザーDB更新 が必要
-    // setPremium(true);
-
   } catch (err) {
     console.error('Stripe error:', err);
     showToast('Payment error. Please try again.');
   } finally {
-    btn.disabled = false;
-    btn.textContent = t('upgradeCta');
+    btn.disabled = false; btn.textContent = t('upgradeCta');
   }
 }
 
-// URLパラメータで checkout=success が来たら PRO に切り替え（デモ用簡易処理）
 (function checkStripeReturn() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('checkout') === 'success') {
@@ -1327,130 +859,61 @@ let images = [];
 let logoImage = null;
 let isProcessing = false;
 
-// ---- Upload ----
 const uploadZone = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');
 
 uploadZone.addEventListener('click', () => fileInput.click());
 uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
 uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
-uploadZone.addEventListener('drop', (e) => {
-  e.preventDefault();
-  uploadZone.classList.remove('dragover');
-  handleFiles(e.dataTransfer.files);
-});
-
-fileInput.addEventListener('change', (e) => {
-  handleFiles(e.target.files);
-  fileInput.value = '';
-});
+uploadZone.addEventListener('drop', (e) => { e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+fileInput.addEventListener('change', (e) => { handleFiles(e.target.files); fileInput.value = ''; });
 
 function handleFiles(files) {
   let count = 0;
   for (const file of files) {
     if (!file.type.startsWith('image/')) continue;
     const id = Date.now() + '-' + Math.random().toString(36).substr(2, 6);
-    const url = URL.createObjectURL(file);
-    images.push({ id, file, originalUrl: url, processedUrl: null, processedBlob: null, status: 'pending', selected: true });
+    images.push({ id, file, originalUrl: URL.createObjectURL(file), processedUrl: null, processedBlob: null, status: 'pending', selected: true });
     count++;
   }
-  if (count > 0) {
-    showToast(count + t('toastAdded'));
-    renderImages();
-    updateUI();
-  }
+  if (count > 0) { showToast(count + t('toastAdded')); renderImages(); updateUI(); }
 }
 
-// ---- Logo Upload ----
 const logoUploadArea = document.getElementById('logoUploadArea');
 const logoInput = document.getElementById('logoInput');
-
 logoUploadArea.addEventListener('click', () => logoInput.click());
 logoInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+  const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = (ev) => {
-    const img = new Image();
-    img.onload = () => { logoImage = img; };
-    img.src = ev.target.result;
+    const img = new Image(); img.onload = () => { logoImage = img; }; img.src = ev.target.result;
     document.getElementById('logoPreviewContainer').innerHTML = `<img class="logo-preview" src="${ev.target.result}" alt="logo">`;
   };
   reader.readAsDataURL(file);
 });
 
-// ---- Render ----
 function renderImages() {
-  const grid = document.getElementById('imageGrid');
-  grid.innerHTML = '';
+  const grid = document.getElementById('imageGrid'); grid.innerHTML = '';
   images.forEach((img) => {
     const card = document.createElement('div');
     card.className = `image-card ${img.selected ? 'selected' : ''}`;
     card.innerHTML = `
-      <div class="image-card-header">
-        <span class="image-card-name" title="${img.file.name}">${img.file.name}</span>
-        <input type="checkbox" class="image-card-checkbox" ${img.selected ? 'checked' : ''} onchange="toggleSelect('${img.id}')">
-      </div>
-      <div class="image-card-preview" id="preview-${img.id}">
-        <img src="${img.processedUrl || img.originalUrl}" alt="">
-        ${img.status === 'processing' ? '<div class="spinner"></div>' : ''}
-        ${img.processedUrl ? `
-          <div class="view-tabs">
-            <button class="view-tab" onclick="showOriginal('${img.id}', this)">${t('original')}</button>
-            <button class="view-tab active" onclick="showProcessed('${img.id}', this)">${t('processed')}</button>
-          </div>
-        ` : ''}
-      </div>
-      <div class="image-card-status status-${img.status}" data-status-id="${img.id}">${getStatusText(img.status)}</div>
-    `;
+      <div class="image-card-header"><span class="image-card-name" title="${img.file.name}">${img.file.name}</span><input type="checkbox" class="image-card-checkbox" ${img.selected ? 'checked' : ''} onchange="toggleSelect('${img.id}')"></div>
+      <div class="image-card-preview" id="preview-${img.id}"><img src="${img.processedUrl || img.originalUrl}" alt="">${img.status === 'processing' ? '<div class="spinner"></div>' : ''}${img.processedUrl ? `<div class="view-tabs"><button class="view-tab" onclick="showOriginal('${img.id}', this)">${t('original')}</button><button class="view-tab active" onclick="showProcessed('${img.id}', this)">${t('processed')}</button></div>` : ''}</div>
+      <div class="image-card-status status-${img.status}" data-status-id="${img.id}">${getStatusText(img.status)}</div>`;
     grid.appendChild(card);
   });
 }
 
-function getStatusText(status) {
-  return { pending: t('statusPending'), processing: t('statusProcessing'), done: t('statusDone'), error: t('statusError') }[status] || status;
-}
+function getStatusText(s) { return { pending: t('statusPending'), processing: t('statusProcessing'), done: t('statusDone'), error: t('statusError') }[s] || s; }
+function updateCardStatusTexts() { images.forEach(img => { const el = document.querySelector(`[data-status-id="${img.id}"]`); if (el) el.textContent = getStatusText(img.status); }); }
 
-function updateCardStatusTexts() {
-  images.forEach(img => {
-    const el = document.querySelector(`[data-status-id="${img.id}"]`);
-    if (el) el.textContent = getStatusText(img.status);
-  });
-}
+function showOriginal(id, btn) { const img = images.find(i => i.id === id); if (!img) return; document.querySelector(`#preview-${id} img`).src = img.originalUrl; btn.parentElement.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active')); btn.classList.add('active'); }
+function showProcessed(id, btn) { const img = images.find(i => i.id === id); if (!img || !img.processedUrl) return; document.querySelector(`#preview-${id} img`).src = img.processedUrl; btn.parentElement.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active')); btn.classList.add('active'); }
 
-function showOriginal(id, btn) {
-  const img = images.find(i => i.id === id);
-  if (!img) return;
-  document.querySelector(`#preview-${id} img`).src = img.originalUrl;
-  btn.parentElement.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function showProcessed(id, btn) {
-  const img = images.find(i => i.id === id);
-  if (!img || !img.processedUrl) return;
-  document.querySelector(`#preview-${id} img`).src = img.processedUrl;
-  btn.parentElement.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function toggleSelect(id) {
-  const img = images.find(i => i.id === id);
-  if (img) { img.selected = !img.selected; renderImages(); updateSelectionCount(); }
-}
-
-function toggleSelectAll() {
-  const checked = document.getElementById('selectAllCheckbox').checked;
-  images.forEach(img => img.selected = checked);
-  renderImages();
-  updateSelectionCount();
-}
-
-function updateSelectionCount() {
-  const count = images.filter(i => i.selected).length;
-  document.getElementById('selectionCount').textContent = `(${count}/${images.length})`;
-  document.getElementById('selectAllCheckbox').checked = count === images.length;
-}
+function toggleSelect(id) { const img = images.find(i => i.id === id); if (img) { img.selected = !img.selected; renderImages(); updateSelectionCount(); } }
+function toggleSelectAll() { const checked = document.getElementById('selectAllCheckbox').checked; images.forEach(img => img.selected = checked); renderImages(); updateSelectionCount(); }
+function updateSelectionCount() { const count = images.filter(i => i.selected).length; document.getElementById('selectionCount').textContent = `(${count}/${images.length})`; document.getElementById('selectAllCheckbox').checked = count === images.length; }
 
 function updateUI() {
   const hasImages = images.length > 0;
@@ -1461,17 +924,8 @@ function updateUI() {
   document.getElementById('downloadBtn').disabled = !images.some(i => i.status === 'done');
 }
 
-function clearAll() {
-  images.forEach(img => {
-    if (img.originalUrl) URL.revokeObjectURL(img.originalUrl);
-    if (img.processedUrl) URL.revokeObjectURL(img.processedUrl);
-  });
-  images = [];
-  renderImages();
-  updateUI();
-}
+function clearAll() { images.forEach(img => { if (img.originalUrl) URL.revokeObjectURL(img.originalUrl); if (img.processedUrl) URL.revokeObjectURL(img.processedUrl); }); images = []; renderImages(); updateUI(); }
 
-// ---- Range sliders ----
 document.getElementById('copyrightSize').addEventListener('input', e => document.getElementById('sizeValue').textContent = e.target.value + 'px');
 document.getElementById('copyrightOpacity').addEventListener('input', e => document.getElementById('opacityValue').textContent = e.target.value + '%');
 document.getElementById('logoSize').addEventListener('input', e => document.getElementById('logoSizeValue').textContent = e.target.value + '%');
@@ -1480,80 +934,47 @@ document.getElementById('jpegQuality').addEventListener('input', e => document.g
 document.getElementById('outputFormat').addEventListener('change', e => document.getElementById('jpegQualityRow').style.display = e.target.value === 'jpeg' ? 'flex' : 'none');
 
 // ================================================================
-//  Processing (with freemium check)
+//  Processing
 // ================================================================
 async function startProcessing() {
   if (isProcessing) return;
-
   const selected = images.filter(i => i.selected && i.status !== 'done');
   if (selected.length === 0) return;
 
-  // ---- Freemium gate ----
   const remaining = getRemainingToday();
-  if (remaining <= 0) {
-    showLimitOverlay();
-    return;
-  }
+  if (remaining <= 0) { showLimitOverlay(); return; }
 
   const toProcess = isPremium() ? selected : selected.slice(0, remaining);
-  if (toProcess.length < selected.length) {
-    showToast(`${t('limitReached')} (${toProcess.length}/${selected.length})`);
-  }
+  if (toProcess.length < selected.length) showToast(`${t('limitReached')} (${toProcess.length}/${selected.length})`);
 
   isProcessing = true;
   document.getElementById('processBtn').disabled = true;
   document.getElementById('progressContainer').classList.add('show');
-
   const enableBg = document.getElementById('enableBgRemoval').checked;
   let processed = 0;
 
   for (const img of toProcess) {
-    img.status = 'processing';
-    renderImages();
-
+    img.status = 'processing'; renderImages();
     try {
       let canvas = await loadImageToCanvas(img.originalUrl);
-
-      if (enableBg) {
-        updateProgress(processed, toProcess.length, t('loadingModel'));
-        canvas = await removeBackground(canvas, img.file);
-      }
-
+      if (enableBg) { updateProgress(processed, toProcess.length, t('loadingModel')); canvas = await removeBackground(canvas, img.file); }
       if (document.getElementById('enableCopyrightText').checked) applyCopyrightText(canvas);
       if (document.getElementById('enableCopyrightLogo').checked && logoImage) applyCopyrightLogo(canvas);
 
       const format = document.getElementById('outputFormat').value;
       const quality = parseInt(document.getElementById('jpegQuality').value) / 100;
-      const mimeType = format === 'jpeg' ? 'image/jpeg' : 'image/png';
-
-      const blob = await new Promise(resolve => canvas.toBlob(resolve, mimeType, quality));
-      img.processedBlob = blob;
-      img.processedUrl = URL.createObjectURL(blob);
-      img.status = 'done';
-
-      // Count usage
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, format === 'jpeg' ? 'image/jpeg' : 'image/png', quality));
+      img.processedBlob = blob; img.processedUrl = URL.createObjectURL(blob); img.status = 'done';
       if (!isPremium()) addUsage(1);
-
-    } catch (err) {
-      console.error('Processing error:', err);
-      img.status = 'error';
-    }
-
-    processed++;
-    updateProgress(processed, toProcess.length);
-    renderImages();
+    } catch (err) { console.error('Processing error:', err); img.status = 'error'; }
+    processed++; updateProgress(processed, toProcess.length); renderImages();
   }
 
   isProcessing = false;
   document.getElementById('processBtn').disabled = false;
   document.getElementById('progressContainer').classList.remove('show');
-  updateUI();
-  showToast(t('toastDone'));
-
-  // Show limit overlay if all used up
-  if (!isPremium() && getRemainingToday() <= 0 && selected.length > toProcess.length) {
-    setTimeout(showLimitOverlay, 500);
-  }
+  updateUI(); showToast(t('toastDone'));
+  if (!isPremium() && getRemainingToday() <= 0 && selected.length > toProcess.length) setTimeout(showLimitOverlay, 500);
 }
 
 function updateProgress(current, total, text) {
@@ -1565,60 +986,32 @@ function updateProgress(current, total, text) {
 
 function loadImageToCanvas(url) {
   return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      canvas.getContext('2d').drawImage(img, 0, 0);
-      resolve(canvas);
-    };
-    img.onerror = reject;
-    img.src = url;
+    const img = new Image(); img.crossOrigin = 'anonymous';
+    img.onload = () => { const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight; c.getContext('2d').drawImage(img, 0, 0); resolve(c); };
+    img.onerror = reject; img.src = url;
   });
 }
 
 async function removeBackground(canvas, file) {
-  const resultBlob = await imglyRemoveBackground(file, {
-    publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/dist/',
-  });
+  const resultBlob = await imglyRemoveBackground(file, { publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/dist/' });
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = () => {
-      const c = document.createElement('canvas');
-      c.width = img.naturalWidth;
-      c.height = img.naturalHeight;
-      c.getContext('2d').drawImage(img, 0, 0);
-      resolve(c);
-    };
-    img.onerror = reject;
-    img.src = URL.createObjectURL(resultBlob);
+    img.onload = () => { const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight; c.getContext('2d').drawImage(img, 0, 0); resolve(c); };
+    img.onerror = reject; img.src = URL.createObjectURL(resultBlob);
   });
 }
 
 function applyCopyrightText(canvas) {
-  const ctx = canvas.getContext('2d');
-  const text = document.getElementById('copyrightText').value;
-  if (!text) return;
-
+  const ctx = canvas.getContext('2d'); const text = document.getElementById('copyrightText').value; if (!text) return;
   const fontSize = parseInt(document.getElementById('copyrightSize').value);
   const scaledSize = Math.max(12, Math.round(fontSize * (canvas.width / 800)));
   const color = document.getElementById('copyrightColor').value;
   const opacity = parseInt(document.getElementById('copyrightOpacity').value) / 100;
   const position = document.getElementById('copyrightPosition').value;
-
-  ctx.save();
-  ctx.globalAlpha = opacity;
+  ctx.save(); ctx.globalAlpha = opacity;
   ctx.font = `${scaledSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
-  ctx.fillStyle = color;
-  ctx.shadowColor = 'rgba(0,0,0,0.5)';
-  ctx.shadowBlur = scaledSize * 0.2;
-  ctx.shadowOffsetX = 1;
-  ctx.shadowOffsetY = 1;
-
-  const padding = scaledSize;
-  let x, y;
+  ctx.fillStyle = color; ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = scaledSize * 0.2; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 1;
+  const padding = scaledSize; let x, y;
   switch (position) {
     case 'bottom-right': ctx.textAlign = 'right'; x = canvas.width - padding; y = canvas.height - padding; break;
     case 'bottom-left': ctx.textAlign = 'left'; x = padding; y = canvas.height - padding; break;
@@ -1627,23 +1020,16 @@ function applyCopyrightText(canvas) {
     case 'top-left': ctx.textAlign = 'left'; x = padding; y = padding + scaledSize; break;
     case 'center': ctx.textAlign = 'center'; x = canvas.width / 2; y = canvas.height / 2; break;
   }
-
-  ctx.fillText(text, x, y);
-  ctx.restore();
+  ctx.fillText(text, x, y); ctx.restore();
 }
 
 function applyCopyrightLogo(canvas) {
-  if (!logoImage) return;
-  const ctx = canvas.getContext('2d');
+  if (!logoImage) return; const ctx = canvas.getContext('2d');
   const sizePercent = parseInt(document.getElementById('logoSize').value) / 100;
   const opacity = parseInt(document.getElementById('logoOpacity').value) / 100;
   const position = document.getElementById('logoPosition').value;
-
-  const logoW = canvas.width * sizePercent;
-  const logoH = (logoImage.height / logoImage.width) * logoW;
-  const padding = 20;
+  const logoW = canvas.width * sizePercent; const logoH = (logoImage.height / logoImage.width) * logoW; const padding = 20;
   let x, y;
-
   switch (position) {
     case 'bottom-right': x = canvas.width - logoW - padding; y = canvas.height - logoH - padding; break;
     case 'bottom-left': x = padding; y = canvas.height - logoH - padding; break;
@@ -1652,47 +1038,25 @@ function applyCopyrightLogo(canvas) {
     case 'top-left': x = padding; y = padding; break;
     case 'center': x = (canvas.width - logoW) / 2; y = (canvas.height - logoH) / 2; break;
   }
-
-  ctx.save();
-  ctx.globalAlpha = opacity;
-  ctx.drawImage(logoImage, x, y, logoW, logoH);
-  ctx.restore();
+  ctx.save(); ctx.globalAlpha = opacity; ctx.drawImage(logoImage, x, y, logoW, logoH); ctx.restore();
 }
 
-// ---- Download ----
 async function downloadAll() {
-  const doneImages = images.filter(i => i.status === 'done' && i.processedBlob);
-  if (doneImages.length === 0) return;
+  const doneImages = images.filter(i => i.status === 'done' && i.processedBlob); if (doneImages.length === 0) return;
   showToast(t('toastDownloading'));
-  for (const img of doneImages) {
-    downloadSingle(img);
-    await new Promise(r => setTimeout(r, 300));
-  }
+  for (const img of doneImages) { downloadSingle(img); await new Promise(r => setTimeout(r, 300)); }
 }
 
 function downloadSingle(img) {
   const format = document.getElementById('outputFormat').value;
   const ext = format === 'jpeg' ? '.jpg' : '.png';
-  const name = img.file.name.replace(/\.[^.]+$/, '') + '_processed' + ext;
-  const a = document.createElement('a');
-  a.href = img.processedUrl;
-  a.download = name;
-  a.click();
+  const a = document.createElement('a'); a.href = img.processedUrl; a.download = img.file.name.replace(/\.[^.]+$/, '') + '_processed' + ext; a.click();
 }
 
-// ---- Toast ----
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
-}
+function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3000); }
 
 // ---- Init ----
-updateUI();
-updateUsageBar();
-updatePlanBadge();
-updateAds();
+updateUI(); updateUsageBar(); updatePlanBadge(); updateAds(); updateHeroCta();
 </script>
 </body>
 </html>
