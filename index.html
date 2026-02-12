@@ -835,7 +835,7 @@ async function startStripeCheckout() {
   btn.disabled = true; btn.textContent = '...';
   try {
     // Stripe Payment Links（サーバー不要・最も簡単）
-    window.open('https://buy.stripe.com/XXXXXXXXXXXXXX', '_blank');
+    window.open('https://buy.stripe.com/test_14A8wR5PObwGd5497C6sw00', '_blank');
   } catch (err) {
     console.error('Stripe error:', err);
     showToast('Payment error. Please try again.');
