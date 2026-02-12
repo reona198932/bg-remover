@@ -1,1063 +1,2023 @@
-<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-adsense-account" content="ca-pub-7090197458512511">
-<title>BG Remover & Copyright Tool</title>
-<meta name="description" content="AI-powered background removal and copyright watermark tool. Free online batch image processor.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="背景削除 + 著作権保護 AIツール。簡単に画像の背景を削除し、著作権テキストやロゴを追加。1日1枚まで無料。">
+    <meta name="keywords" content="背景削除, 著作権保護, 画像編集, AI, ツール, 透かし, ウォーターマーク">
+    <meta name="author" content="VIERI">
+    <meta name="publisher" content="VIERI">
+    <meta name="robots" content="index, follow">
 
-<!-- Google AdSense (あなたのIDに差し替えてください) -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7090197458512511" crossorigin="anonymous"></script>
+    <!-- Open Graph / OGP Tags -->
+    <meta property="og:title" content="背景削除 + 著作権保護ツール">
+    <meta property="og:description" content="無料でAIが画像の背景を削除。著作権テキストとロゴを追加して保護。">
+    <meta property="og:image" content="https://reona198932.github.io/bg-remover/og-image.png">
+    <meta property="og:url" content="https://reona198932.github.io/bg-remover/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BG Remover Pro">
 
-<!-- Stripe.js -->
-<script src="https://js.stripe.com/v3/"></script>
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="背景削除 + 著作権保護ツール">
+    <meta name="twitter:description" content="無料でAIが画像の背景を削除。著作権テキストとロゴを追加。">
+    <meta name="twitter:image" content="https://reona198932.github.io/bg-remover/og-image.png">
 
-<script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/dist/index.umd.js"></script>
-<style>
-:root {
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --bg: #0f172a;
-  --surface: #1e293b;
-  --surface2: #334155;
-  --text: #f1f5f9;
-  --text-muted: #94a3b8;
-  --border: #475569;
-  --success: #22c55e;
-  --danger: #ef4444;
-  --warning: #f59e0b;
-  --gold: #f59e0b;
-}
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://reona198932.github.io/bg-remover/">
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+    <!-- Language Alternates -->
+    <link rel="alternate" hreflang="ja" href="https://reona198932.github.io/bg-remover/">
+    <link rel="alternate" hreflang="en" href="https://reona198932.github.io/bg-remover/?lang=en">
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BG Remover">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%231a1a2e' width='180' height='180'/><text x='50%' y='50%' font-size='80' fill='%23e94560' text-anchor='middle' dominant-baseline='middle' font-weight='bold'>BR</text></svg>">
 
-/* ---- Ad Slots ---- */
-.ad-slot {
-  background: var(--surface);
-  border: 1px dashed var(--border);
-  text-align: center;
-  padding: 8px;
-  min-height: 90px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-size: 12px;
-}
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "SoftwareApplication",
+        "name": "BG Remover Pro",
+        "description": "AI-powered background removal and copyright protection tool",
+        "url": "https://reona198932.github.io/bg-remover/",
+        "applicationCategory": "Multimedia",
+        "author": {
+            "@type": "Organization",
+            "name": "VIERI"
+        },
+        "offers": [
+            {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "JPY",
+                "name": "Free Plan",
+                "description": "1 image per day"
+            },
+            {
+                "@type": "Offer",
+                "price": "490",
+                "priceCurrency": "JPY",
+                "name": "PRO Plan",
+                "description": "Unlimited images, ad-free",
+                "pricingModel": "Subscription",
+                "billingDuration": "P1M"
+            }
+        ]
+    }
+    </script>
 
-.ad-slot-header { border-bottom: 1px solid var(--border); }
-.ad-slot-footer { border-top: 1px solid var(--border); margin-top: auto; }
-.ad-slot.premium-hidden { display: none; }
+    <title>背景削除 + 著作権保護ツール | BG Remover Pro</title>
 
-/* ---- Header ---- */
-.app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-}
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7090197458512511" crossorigin="anonymous"></script>
 
-.header-left { display: flex; align-items: center; gap: 16px; }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.app-title {
-  font-size: 20px;
-  font-weight: 700;
-  background: linear-gradient(135deg, #818cf8, #c084fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text-primary: #eee;
+            --text-secondary: #aaa;
+            --success: #00d4ff;
+        }
 
-.header-right { display: flex; align-items: center; gap: 12px; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-.lang-toggle {
-  display: flex;
-  background: var(--surface2);
-  border-radius: 8px;
-  overflow: hidden;
-}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-.lang-btn {
-  padding: 6px 14px;
-  border: none;
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s;
-}
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--accent) 100%);
+            padding: 1.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.lang-btn.active { background: var(--primary); color: white; }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
 
-/* ---- Plan Badge ---- */
-.plan-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
-}
+        .app-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--highlight) 0%, var(--success) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-.plan-badge.free { background: var(--surface2); color: var(--text-muted); }
-.plan-badge.premium { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
-.plan-badge:hover { opacity: 0.9; transform: translateY(-1px); }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
-/* ---- Hero CTA Banner ---- */
-.hero-cta {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #c026d3 100%);
-  padding: 32px 24px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
+        .lang-toggle {
+            background: var(--bg-primary);
+            color: var(--highlight);
+            border: 1px solid var(--highlight);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
 
-.hero-cta.premium-hidden { display: none; }
+        .lang-toggle:hover {
+            background: var(--highlight);
+            color: var(--bg-primary);
+        }
 
-.hero-cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
-}
+        .ads-header {
+            text-align: center;
+            margin: 0.5rem 0;
+        }
 
-.hero-cta-inner {
-  max-width: 700px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
+        .hero-banner {
+            background: linear-gradient(135deg, var(--highlight) 0%, #ff6b8a 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(233, 69, 96, 0.3);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+        }
 
-.hero-cta-badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.2);
-  color: white;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 14px;
-  border-radius: 20px;
-  margin-bottom: 12px;
-  backdrop-filter: blur(4px);
-}
+        .hero-content {
+            flex: 1;
+            min-width: 250px;
+        }
 
-.hero-cta-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
+        .hero-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
 
-.hero-cta-desc {
-  font-size: 14px;
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
+        .hero-price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
 
-.hero-cta-features {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
+        .hero-subtitle {
+            font-size: 1rem;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+        }
 
-.hero-cta-feat {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.9);
-}
+        .hero-cta {
+            background: white;
+            color: var(--highlight);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
 
-.hero-cta-feat::before {
-  content: '✓';
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 50%;
-  font-size: 11px;
-  font-weight: 700;
-}
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
 
-.hero-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 40px;
-  background: white;
-  color: #4f46e5;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
+        .hero-banner.hidden {
+            display: none;
+        }
 
-.hero-cta-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(0,0,0,0.3);
-}
+        .usage-section {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            margin: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--highlight);
+        }
 
-.hero-cta-sub {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-  margin-top: 10px;
-}
+        .usage-section.hidden {
+            display: none;
+        }
 
-/* ---- Usage Counter ---- */
-.usage-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 24px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-}
+        .usage-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
 
-.usage-bar.premium-hidden { display: none; }
-.usage-label { color: var(--text-muted); }
+        .usage-bar {
+            background: var(--accent);
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
 
-.usage-track {
-  flex: 1;
-  max-width: 200px;
-  height: 6px;
-  background: var(--surface2);
-  border-radius: 3px;
-  overflow: hidden;
-}
+        .usage-fill {
+            background: linear-gradient(90deg, var(--highlight) 0%, var(--success) 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            transition: width 0.3s ease;
+            width: 100%;
+        }
 
-.usage-fill { height: 100%; background: var(--primary); border-radius: 3px; transition: width 0.3s; }
-.usage-fill.warning { background: var(--warning); }
-.usage-fill.danger { background: var(--danger); }
-.usage-count { font-weight: 600; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
 
-.usage-upgrade {
-  padding: 4px 12px;
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
 
-.usage-upgrade:hover { opacity: 0.9; }
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
 
-/* ---- Main ---- */
-.main-container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+            .hero-banner {
+                flex-direction: column;
+            }
+        }
 
-/* Upload Zone */
-.upload-zone {
-  border: 2px dashed var(--border);
-  border-radius: 16px;
-  padding: 48px;
-  text-align: center;
-  transition: all 0.3s;
-  cursor: pointer;
-  margin-bottom: 24px;
-}
+        .panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
 
-.upload-zone:hover, .upload-zone.dragover {
-  border-color: var(--primary);
-  background: rgba(99, 102, 241, 0.05);
-}
+        .panel-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--highlight);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-.upload-icon { font-size: 48px; margin-bottom: 12px; }
-.upload-text { font-size: 16px; color: var(--text-muted); margin-bottom: 8px; }
-.upload-sub { font-size: 13px; color: var(--text-muted); opacity: 0.7; }
+        .upload-zone {
+            border: 2px dashed var(--highlight);
+            border-radius: 12px;
+            padding: 3rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(233, 69, 96, 0.05);
+        }
 
-.upload-btn {
-  display: inline-block;
-  margin-top: 16px;
-  padding: 10px 24px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s;
-}
+        .upload-zone:hover {
+            background: rgba(233, 69, 96, 0.1);
+            border-color: var(--success);
+        }
 
-.upload-btn:hover { background: var(--primary-hover); }
+        .upload-zone.dragover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: var(--success);
+            transform: scale(1.02);
+        }
 
-/* Settings Panel */
-.settings-panel { background: var(--surface); border-radius: 16px; padding: 24px; margin-bottom: 24px; display: none; }
-.settings-panel.show { display: block; }
-.settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-@media (max-width: 768px) { .settings-grid { grid-template-columns: 1fr; } }
-.setting-section { background: var(--surface2); border-radius: 12px; padding: 20px; }
-.setting-title { font-size: 15px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-.setting-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.setting-row:last-child { margin-bottom: 0; }
-.setting-label { font-size: 13px; color: var(--text-muted); min-width: 80px; }
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
 
-input[type="text"], input[type="number"], input[type="color"], select {
-  padding: 8px 12px; background: var(--bg); border: 1px solid var(--border);
-  border-radius: 6px; color: var(--text); font-size: 13px; outline: none; flex: 1;
-}
+        .upload-text {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
 
-input[type="color"] { width: 40px; height: 36px; padding: 2px; cursor: pointer; flex: none; }
-input[type="range"] { flex: 1; accent-color: var(--primary); }
-select { cursor: pointer; }
-.checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; }
-.checkbox-label input[type="checkbox"] { accent-color: var(--primary); width: 16px; height: 16px; }
+        .upload-hint {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
 
-.logo-upload-area {
-  border: 1px dashed var(--border); border-radius: 8px; padding: 12px;
-  text-align: center; cursor: pointer; font-size: 12px; color: var(--text-muted); transition: border-color 0.2s;
-}
-.logo-upload-area:hover { border-color: var(--primary); }
-.logo-preview { max-height: 40px; margin-top: 8px; }
+        .file-input {
+            display: none;
+        }
 
-/* Action Buttons */
-.action-bar { display: none; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-.action-bar.show { display: flex; }
-.action-btn { padding: 12px 24px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
-.action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-primary { background: var(--primary); color: white; }
-.btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
-.btn-success { background: var(--success); color: white; }
-.btn-success:hover:not(:disabled) { background: #16a34a; }
-.btn-danger { background: var(--danger); color: white; }
-.btn-danger:hover:not(:disabled) { background: #dc2626; }
-.btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-.btn-outline:hover:not(:disabled) { background: var(--surface2); }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-/* Image Grid */
-.image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 24px; }
-.image-card { background: var(--surface); border-radius: 12px; overflow: hidden; border: 2px solid transparent; transition: border-color 0.2s; position: relative; }
-.image-card.selected { border-color: var(--primary); }
-.image-card-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--surface2); }
-.image-card-name { font-size: 12px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 160px; }
-.image-card-checkbox { accent-color: var(--primary); width: 18px; height: 18px; cursor: pointer; }
-.image-card-preview { position: relative; width: 100%; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; background: repeating-conic-gradient(#1a1a2e 0% 25%, #252540 0% 50%) 0 0 / 20px 20px; overflow: hidden; }
-.image-card-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.image-card-status { padding: 6px 12px; font-size: 11px; text-align: center; }
-.status-pending { color: var(--text-muted); }
-.status-processing { color: var(--warning); }
-.status-done { color: var(--success); }
-.status-error { color: var(--danger); }
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
 
-/* Progress Bar */
-.progress-bar-container { background: var(--surface); border-radius: 12px; padding: 16px 24px; margin-bottom: 24px; display: none; }
-.progress-bar-container.show { display: block; }
-.progress-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
-.progress-track { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #c084fc); border-radius: 4px; transition: width 0.3s ease; width: 0%; }
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-/* Select All */
-.select-all-bar { display: none; justify-content: space-between; align-items: center; padding: 8px 16px; background: var(--surface); border-radius: 10px; margin-bottom: 16px; font-size: 13px; }
-.select-all-bar.show { display: flex; }
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--highlight);
+        }
 
-/* View tabs */
-.view-tabs { display: flex; gap: 4px; background: var(--bg); border-radius: 6px; padding: 2px; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 2; }
-.view-tab { padding: 4px 10px; border: none; background: transparent; color: var(--text-muted); font-size: 10px; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
-.view-tab.active { background: var(--primary); color: white; }
+        input[type="text"],
+        input[type="number"],
+        input[type="color"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--accent);
+            color: var(--text-primary);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
 
-/* Spinner */
-.spinner { width: 32px; height: 32px; border: 3px solid var(--surface2); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; position: absolute; z-index: 2; }
-@keyframes spin { to { transform: rotate(360deg); } }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="color"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--highlight);
+            box-shadow: 0 0 8px rgba(233, 69, 96, 0.3);
+        }
 
-/* Toast */
-.toast { position: fixed; bottom: 24px; right: 24px; padding: 12px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-size: 13px; z-index: 1000; transform: translateY(100px); opacity: 0; transition: all 0.3s; }
-.toast.show { transform: translateY(0); opacity: 1; }
+        input[type="color"] {
+            padding: 0.3rem;
+            height: 45px;
+            cursor: pointer;
+        }
 
-/* ---- Pricing Modal ---- */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 900; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-.modal-overlay.show { display: flex; }
-.pricing-modal { background: var(--surface); border-radius: 20px; padding: 40px; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; }
-.modal-close { position: absolute; top: 16px; right: 16px; background: var(--surface2); border: none; color: var(--text); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
-.modal-title { text-align: center; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
-.modal-subtitle { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 32px; }
-.pricing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-@media (max-width: 600px) { .pricing-cards { grid-template-columns: 1fr; } }
-.pricing-card { background: var(--surface2); border-radius: 16px; padding: 28px; border: 2px solid transparent; transition: border-color 0.2s; }
-.pricing-card.featured { border-color: var(--gold); position: relative; }
-.pricing-card.featured::before { content: attr(data-badge); position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; padding: 4px 16px; border-radius: 12px; font-size: 12px; font-weight: 600; }
-.pricing-plan-name { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-.pricing-price { font-size: 36px; font-weight: 700; margin-bottom: 4px; }
-.pricing-price span { font-size: 14px; font-weight: 400; color: var(--text-muted); }
-.pricing-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
-.pricing-features { list-style: none; margin-bottom: 24px; }
-.pricing-features li { padding: 6px 0; font-size: 13px; display: flex; align-items: center; gap: 8px; }
-.pricing-features li::before { content: '✓'; color: var(--success); font-weight: 700; }
-.pricing-cta { width: 100%; padding: 12px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-.pricing-cta.current { background: var(--surface); color: var(--text-muted); cursor: default; }
-.pricing-cta.upgrade { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
-.pricing-cta.upgrade:hover { opacity: 0.9; transform: translateY(-1px); }
+        .slider-group {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
 
-/* ---- Limit Reached Overlay ---- */
-.limit-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 800; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-.limit-overlay.show { display: flex; }
-.limit-card { background: var(--surface); border-radius: 20px; padding: 40px; max-width: 440px; width: 90%; text-align: center; }
-.limit-icon { font-size: 48px; margin-bottom: 16px; }
-.limit-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-.limit-desc { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
-.limit-cta { padding: 14px 32px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; }
-.limit-cta:hover { opacity: 0.9; }
-.limit-dismiss { display: block; background: none; border: none; color: var(--text-muted); font-size: 13px; cursor: pointer; margin: 0 auto; }
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--accent);
+            outline: none;
+            -webkit-appearance: none;
+        }
 
-/* ---- Footer ---- */
-.app-footer { text-align: center; padding: 24px; color: var(--text-muted); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; }
-.app-footer a { color: var(--primary); text-decoration: none; }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--highlight);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(233, 69, 96, 0.4);
+        }
 
-.hidden { display: none !important; }
-</style>
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--highlight);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(233, 69, 96, 0.4);
+        }
+
+        .value-display {
+            min-width: 50px;
+            text-align: right;
+            font-weight: 600;
+            color: var(--highlight);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--highlight) 0%, #ff6b8a 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(233, 69, 96, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent);
+            color: var(--text-primary);
+            border: 1px solid var(--highlight);
+        }
+
+        .btn-secondary:hover {
+            background: var(--highlight);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--highlight);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(233, 69, 96, 0.2);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--accent);
+        }
+
+        .gallery-actions {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .gallery-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .download-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .download-btn {
+            flex: 1;
+            padding: 0.5rem;
+            background: var(--accent);
+            color: var(--text-primary);
+            border: 1px solid var(--highlight);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--highlight);
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--highlight);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--highlight);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pricing-card {
+            background: var(--accent);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card.pro {
+            border-color: var(--highlight);
+            background: rgba(233, 69, 96, 0.1);
+            transform: scale(1.05);
+        }
+
+        .pricing-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--highlight);
+        }
+
+        .pricing-price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--success);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+            min-width: 20px;
+        }
+
+        .pricing-button {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            background: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .pricing-button.pro {
+            background: linear-gradient(135deg, var(--highlight) 0%, #ff6b8a 100%);
+            color: white;
+        }
+
+        .pricing-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .limit-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .limit-overlay.active {
+            display: flex;
+        }
+
+        .limit-message {
+            text-align: center;
+        }
+
+        .limit-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .limit-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--highlight);
+        }
+
+        .limit-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 400px;
+        }
+
+        .limit-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .ads-footer {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .footer {
+            background: var(--bg-secondary);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid var(--accent);
+            color: var(--text-secondary);
+            margin-top: 3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer a {
+            color: var(--highlight);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--success);
+        }
+
+        .result-format-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .preview-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: var(--accent);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%230f3460" width="100" height="100"/><circle cx="50" cy="50" r="10" fill="%23333333" opacity="0.3"/></svg>');
+        }
+
+        .success-message {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .feature-comparison {
+            margin-top: 2rem;
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .comparison-table th {
+            background: var(--accent);
+            font-weight: 700;
+            color: var(--highlight);
+        }
+
+        .comparison-table td {
+            color: var(--text-primary);
+        }
+
+        .check-mark {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .x-mark {
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-left {
+                width: 100%;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .app-title {
+                font-size: 1.4rem;
+            }
+
+            .hero-title {
+                font-size: 1.4rem;
+            }
+
+            .hero-price {
+                font-size: 1.8rem;
+            }
+
+            .hero-banner {
+                padding: 1.5rem 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<!-- ===== AD: Header Banner ===== -->
-<div class="ad-slot ad-slot-header" id="adHeader">
-  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
-       data-ad-client="ca-pub-7090197458512511" data-ad-slot="XXXXXXXXXX"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-
-<!-- ===== HEADER ===== -->
-<div class="app-header">
-  <div class="header-left">
-    <div class="app-title">✦ BG Remover & Copyright</div>
-  </div>
-  <div class="header-right">
-    <button class="plan-badge free" id="planBadge" onclick="openPricingModal()">
-      <span id="planBadgeIcon">⚡</span>
-      <span id="planBadgeText" data-i18n="planFree">Free プラン</span>
-    </button>
-    <div class="lang-toggle">
-      <button class="lang-btn active" data-lang="ja" onclick="setLang('ja')">日本語</button>
-      <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== HERO CTA BANNER (Free users only) ===== -->
-<div class="hero-cta" id="heroCta">
-  <div class="hero-cta-inner">
-    <div class="hero-cta-badge" data-i18n="heroBadge">期間限定キャンペーン</div>
-    <div class="hero-cta-title" data-i18n="heroTitle">PRO プランでもっと自由に。月額たったの ¥490</div>
-    <div class="hero-cta-desc" data-i18n="heroDesc">無制限の背景除去 & コピーライト挿入。広告なしの快適な作業環境で、あなたの作業効率を最大化しましょう。</div>
-    <div class="hero-cta-features">
-      <span class="hero-cta-feat" data-i18n="heroFeat1">処理枚数 無制限</span>
-      <span class="hero-cta-feat" data-i18n="heroFeat2">広告なし</span>
-      <span class="hero-cta-feat" data-i18n="heroFeat3">優先サポート</span>
-    </div>
-    <button class="hero-cta-btn" onclick="openPricingModal()">
-      <span data-i18n="heroBtn">✦ PRO にアップグレード</span>
-    </button>
-    <div class="hero-cta-sub" data-i18n="heroSub">いつでもキャンセル可能 ・ カード決済対応</div>
-  </div>
-</div>
-
-<!-- ===== USAGE BAR (Free users only) ===== -->
-<div class="usage-bar" id="usageBar">
-  <span class="usage-label" data-i18n="usageLabel">本日の残り回数:</span>
-  <div class="usage-track">
-    <div class="usage-fill" id="usageFill" style="width: 100%"></div>
-  </div>
-  <span class="usage-count" id="usageCount">1 / 1</span>
-  <button class="usage-upgrade" onclick="openPricingModal()" data-i18n="upgradeBtn">PRO にアップグレード</button>
-</div>
-
-<!-- ===== MAIN ===== -->
-<div class="main-container">
-  <div class="upload-zone" id="uploadZone">
-    <div class="upload-icon">📁</div>
-    <div class="upload-text" data-i18n="uploadText">画像をドラッグ＆ドロップ、またはクリックして選択</div>
-    <div class="upload-sub" data-i18n="uploadSub">PNG, JPG, WEBP対応 ・ 複数選択可</div>
-    <button class="upload-btn" data-i18n="uploadBtn">ファイルを選択</button>
-    <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
-  </div>
-
-  <div class="settings-panel" id="settingsPanel">
-    <div class="settings-grid">
-      <div class="setting-section">
-        <div class="setting-title">🔲 <span data-i18n="bgTitle">背景除去</span></div>
-        <div class="setting-row">
-          <label class="checkbox-label">
-            <input type="checkbox" id="enableBgRemoval" checked>
-            <span data-i18n="enableBg">背景除去を有効にする</span>
-          </label>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <h1 class="app-title">BG Remover Pro</h1>
         </div>
-      </div>
-      <div class="setting-section">
-        <div class="setting-title">©️ <span data-i18n="crTextTitle">コピーライト（テキスト）</span></div>
-        <div class="setting-row"><label class="checkbox-label"><input type="checkbox" id="enableCopyrightText" checked><span data-i18n="enableCrText">テキストを有効にする</span></label></div>
-        <div class="setting-row"><span class="setting-label" data-i18n="crLabel">テキスト</span><input type="text" id="copyrightText" value="© 2026 Your Name" placeholder="© 2026 Your Name"></div>
-        <div class="setting-row">
-          <span class="setting-label" data-i18n="posLabel">位置</span>
-          <select id="copyrightPosition">
-            <option value="bottom-right" data-i18n-opt="posBR">右下</option>
-            <option value="bottom-left" data-i18n-opt="posBL">左下</option>
-            <option value="bottom-center" data-i18n-opt="posBC">中央下</option>
-            <option value="top-right" data-i18n-opt="posTR">右上</option>
-            <option value="top-left" data-i18n-opt="posTL">左上</option>
-            <option value="center" data-i18n-opt="posC">中央</option>
-          </select>
+        <div class="header-right">
+            <button class="lang-toggle" id="langToggle"></button>
         </div>
-        <div class="setting-row"><span class="setting-label" data-i18n="sizeLabel">サイズ</span><input type="range" id="copyrightSize" min="8" max="72" value="24"><span id="sizeValue">24px</span></div>
-        <div class="setting-row"><span class="setting-label" data-i18n="colorLabel">色</span><input type="color" id="copyrightColor" value="#ffffff"></div>
-        <div class="setting-row"><span class="setting-label" data-i18n="opacityLabel">不透明度</span><input type="range" id="copyrightOpacity" min="10" max="100" value="50"><span id="opacityValue">50%</span></div>
-      </div>
-      <div class="setting-section">
-        <div class="setting-title">🖼️ <span data-i18n="crLogoTitle">コピーライト（ロゴ）</span></div>
-        <div class="setting-row"><label class="checkbox-label"><input type="checkbox" id="enableCopyrightLogo"><span data-i18n="enableCrLogo">ロゴ画像を有効にする</span></label></div>
-        <div class="logo-upload-area" id="logoUploadArea">
-          <span data-i18n="logoUpload">クリックしてロゴ画像を選択（PNG推奨）</span>
-          <input type="file" id="logoInput" accept="image/*" style="display:none">
-          <div id="logoPreviewContainer"></div>
-        </div>
-        <div class="setting-row" style="margin-top:12px;">
-          <span class="setting-label" data-i18n="logoPos">位置</span>
-          <select id="logoPosition">
-            <option value="bottom-right" data-i18n-opt="posBR">右下</option>
-            <option value="bottom-left" data-i18n-opt="posBL">左下</option>
-            <option value="bottom-center" data-i18n-opt="posBC">中央下</option>
-            <option value="top-right" data-i18n-opt="posTR">右上</option>
-            <option value="top-left" data-i18n-opt="posTL">左上</option>
-            <option value="center" data-i18n-opt="posC">中央</option>
-          </select>
-        </div>
-        <div class="setting-row"><span class="setting-label" data-i18n="logoSizeLabel">サイズ(%)</span><input type="range" id="logoSize" min="5" max="50" value="15"><span id="logoSizeValue">15%</span></div>
-        <div class="setting-row"><span class="setting-label" data-i18n="logoOpacityLabel">不透明度</span><input type="range" id="logoOpacity" min="10" max="100" value="60"><span id="logoOpacityValue">60%</span></div>
-      </div>
-      <div class="setting-section">
-        <div class="setting-title">💾 <span data-i18n="outputTitle">出力設定</span></div>
-        <div class="setting-row"><span class="setting-label" data-i18n="formatLabel">形式</span><select id="outputFormat"><option value="png">PNG</option><option value="jpeg">JPEG</option></select></div>
-        <div class="setting-row" id="jpegQualityRow"><span class="setting-label" data-i18n="qualityLabel">品質</span><input type="range" id="jpegQuality" min="10" max="100" value="90"><span id="qualityValue">90%</span></div>
-      </div>
+    </header>
+
+    <!-- AdSense Header Slot -->
+    <div class="ads-header">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-7090197458512511"
+             data-ad-slot="7890123456"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
-  </div>
 
-  <div class="select-all-bar" id="selectAllBar">
-    <label class="checkbox-label"><input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()"><span data-i18n="selectAll">すべて選択</span><span id="selectionCount">(0)</span></label>
-  </div>
-
-  <div class="action-bar" id="actionBar">
-    <button class="action-btn btn-primary" id="processBtn" onclick="startProcessing()">▶ <span data-i18n="processBtn">一括処理を開始</span></button>
-    <button class="action-btn btn-success" id="downloadBtn" onclick="downloadAll()" disabled>⬇ <span data-i18n="downloadBtn">一括ダウンロード</span></button>
-    <button class="action-btn btn-outline" id="addMoreBtn" onclick="document.getElementById('fileInput').click()">＋ <span data-i18n="addMore">追加</span></button>
-    <button class="action-btn btn-danger" id="clearBtn" onclick="clearAll()">🗑 <span data-i18n="clearBtn">クリア</span></button>
-  </div>
-
-  <div class="progress-bar-container" id="progressContainer">
-    <div class="progress-info"><span id="progressText" data-i18n="progressText">処理中...</span><span id="progressPercent">0%</span></div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-  </div>
-
-  <div class="image-grid" id="imageGrid"></div>
-</div>
-
-<div class="app-footer">
-  <p>© 2026 BG Remover & Copyright Tool. All rights reserved.</p>
-  <p style="margin-top:4px"><a href="#" onclick="openPricingModal();return false;" data-i18n="footerUpgrade">無制限で使うには PRO プランへ</a></p>
-</div>
-
-<!-- ===== AD: Footer Banner ===== -->
-<div class="ad-slot ad-slot-footer" id="adFooter">
-  <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
-       data-ad-client="ca-pub-7090197458512511" data-ad-slot="XXXXXXXXXX"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-
-<!-- ===== Pricing Modal ===== -->
-<div class="modal-overlay" id="pricingModal">
-  <div class="pricing-modal">
-    <button class="modal-close" onclick="closePricingModal()">✕</button>
-    <div class="modal-title" data-i18n="pricingTitle">プランを選択</div>
-    <div class="modal-subtitle" data-i18n="pricingSubtitle">あなたに合ったプランでスタートしましょう</div>
-    <div class="pricing-cards">
-      <div class="pricing-card">
-        <div class="pricing-plan-name" data-i18n="planFreeName">Free</div>
-        <div class="pricing-price">¥0</div>
-        <div class="pricing-desc" data-i18n="planFreeDesc">お試し利用に最適</div>
-        <ul class="pricing-features">
-          <li data-i18n="feat1Free">1日1枚まで処理可能</li>
-          <li data-i18n="feat2Free">背景除去＋コピーライト</li>
-          <li data-i18n="feat3Free">PNG / JPEG 出力</li>
-          <li data-i18n="feat4Free">広告あり</li>
-        </ul>
-        <button class="pricing-cta current" data-i18n="currentPlan">現在のプラン</button>
-      </div>
-      <div class="pricing-card featured" data-badge="POPULAR">
-        <div class="pricing-plan-name" data-i18n="planProName">PRO</div>
-        <div class="pricing-price">¥490 <span data-i18n="perMonth">/ 月</span></div>
-        <div class="pricing-desc" data-i18n="planProDesc">プロフェッショナル向け</div>
-        <ul class="pricing-features">
-          <li data-i18n="feat1Pro">処理枚数無制限</li>
-          <li data-i18n="feat2Pro">背景除去＋コピーライト</li>
-          <li data-i18n="feat3Pro">PNG / JPEG 出力</li>
-          <li data-i18n="feat4Pro">広告なし</li>
-        </ul>
-        <button class="pricing-cta upgrade" id="stripeCheckoutBtn" onclick="startStripeCheckout()" data-i18n="upgradeCta">PRO にアップグレード</button>
-      </div>
+    <!-- Hero Banner (visible only for free users) -->
+    <div class="hero-banner" id="heroBanner">
+        <div class="hero-content">
+            <div class="hero-title" id="heroTitle"></div>
+            <div class="hero-subtitle" id="heroSubtitle"></div>
+            <div class="hero-price" id="heroPrice"></div>
+        </div>
+        <button class="hero-cta" id="heroCtaBtn"></button>
     </div>
-  </div>
-</div>
 
-<!-- ===== Limit Reached Overlay ===== -->
-<div class="limit-overlay" id="limitOverlay">
-  <div class="limit-card">
-    <div class="limit-icon">🔒</div>
-    <div class="limit-title" data-i18n="limitTitle">本日の無料枠を使い切りました</div>
-    <div class="limit-desc" data-i18n="limitDesc">PRO プラン（¥490/月）なら枚数無制限・広告なしで使えます。明日まで待つか、アップグレードしてすぐに続けましょう。</div>
-    <button class="limit-cta" onclick="closeLimitOverlay();openPricingModal();" data-i18n="limitCta">PRO プランを見る（¥490/月）</button>
-    <button class="limit-dismiss" onclick="closeLimitOverlay()" data-i18n="limitDismiss">明日また来る</button>
-  </div>
-</div>
+    <!-- Usage Bar (visible only for free users) -->
+    <div class="usage-section" id="usageSection">
+        <div class="usage-label" id="usageLabel"></div>
+        <div class="usage-bar">
+            <div class="usage-fill" id="usageFill"></div>
+        </div>
+    </div>
 
-<div class="toast" id="toast"></div>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Upload Panel -->
+            <div class="panel">
+                <h2 class="panel-title">
+                    <span>📤</span>
+                    <span id="uploadTitle"></span>
+                </h2>
 
-<script>
-// ================================================================
-//  CONFIG
-// ================================================================
-const CONFIG = {
-  DAILY_FREE_LIMIT: 1,
-  PRO_PRICE_JPY: 490,
-  STRIPE_PK: 'pk_test_XXXXXXXXXXXXXXXXXXXXXXXX',
-  STRIPE_CHECKOUT_URL: 'https://your-api.example.com/create-checkout-session',
-};
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-icon">🖼️</div>
+                    <div class="upload-text" id="uploadText"></div>
+                    <div class="upload-hint" id="uploadHint"></div>
+                </div>
+                <input type="file" id="fileInput" class="file-input" accept="image/*" multiple>
 
-// ================================================================
-//  i18n
-// ================================================================
-const i18n = {
-  ja: {
-    uploadText: '画像をドラッグ＆ドロップ、またはクリックして選択',
-    uploadSub: 'PNG, JPG, WEBP対応 ・ 複数選択可',
-    uploadBtn: 'ファイルを選択',
-    bgTitle: '背景除去', enableBg: '背景除去を有効にする',
-    crTextTitle: 'コピーライト（テキスト）', enableCrText: 'テキストを有効にする',
-    crLabel: 'テキスト', posLabel: '位置', sizeLabel: 'サイズ',
-    colorLabel: '色', opacityLabel: '不透明度',
-    crLogoTitle: 'コピーライト（ロゴ）', enableCrLogo: 'ロゴ画像を有効にする',
-    logoUpload: 'クリックしてロゴ画像を選択（PNG推奨）',
-    logoPos: '位置', logoSizeLabel: 'サイズ(%)', logoOpacityLabel: '不透明度',
-    outputTitle: '出力設定', formatLabel: '形式', qualityLabel: '品質',
-    selectAll: 'すべて選択',
-    processBtn: '一括処理を開始', downloadBtn: '一括ダウンロード',
-    addMore: '追加', clearBtn: 'クリア', progressText: '処理中...',
-    statusPending: '待機中', statusProcessing: '処理中...',
-    statusDone: '完了 ✓', statusError: 'エラー',
-    original: 'オリジナル', processed: '処理済み',
-    posBR: '右下', posBL: '左下', posBC: '中央下',
-    posTR: '右上', posTL: '左上', posC: '中央',
-    toastAdded: '枚の画像を追加しました',
-    toastDone: '処理が完了しました',
-    toastDownloading: 'ダウンロード中...',
-    loadingModel: 'AIモデルを読み込み中（初回のみ時間がかかります）...',
-    planFree: 'Free プラン', planPro: '✦ PRO',
-    usageLabel: '本日の残り回数:',
-    upgradeBtn: 'PRO にアップグレード',
-    pricingTitle: 'プランを選択',
-    pricingSubtitle: 'あなたに合ったプランでスタートしましょう',
-    planFreeName: 'Free', planProName: 'PRO',
-    planFreeDesc: 'お試し利用に最適', planProDesc: 'プロフェッショナル向け',
-    perMonth: '/ 月',
-    feat1Free: '1日1枚まで処理可能', feat2Free: '背景除去＋コピーライト',
-    feat3Free: 'PNG / JPEG 出力', feat4Free: '広告あり',
-    feat1Pro: '処理枚数無制限', feat2Pro: '背景除去＋コピーライト',
-    feat3Pro: 'PNG / JPEG 出力', feat4Pro: '広告なし',
-    currentPlan: '現在のプラン',
-    upgradeCta: 'PRO にアップグレード',
-    limitTitle: '本日の無料枠を使い切りました',
-    limitDesc: 'PRO プラン（¥490/月）なら枚数無制限・広告なしで使えます。明日まで待つか、アップグレードしてすぐに続けましょう。',
-    limitCta: 'PRO プランを見る（¥490/月）',
-    limitDismiss: '明日また来る',
-    footerUpgrade: '無制限で使うには PRO プランへ',
-    limitReached: '無料枠の上限に達しました',
-    welcomePro: 'PRO プランへようこそ！',
-    heroBadge: '期間限定キャンペーン',
-    heroTitle: 'PRO プランでもっと自由に。月額たったの ¥490',
-    heroDesc: '無制限の背景除去 & コピーライト挿入。広告なしの快適な作業環境で、あなたの作業効率を最大化しましょう。',
-    heroFeat1: '処理枚数 無制限', heroFeat2: '広告なし', heroFeat3: '優先サポート',
-    heroBtn: '✦ PRO にアップグレード',
-    heroSub: 'いつでもキャンセル可能 ・ カード決済対応',
-  },
-  en: {
-    uploadText: 'Drag & drop images here, or click to select',
-    uploadSub: 'Supports PNG, JPG, WEBP ・ Multiple files OK',
-    uploadBtn: 'Select Files',
-    bgTitle: 'Background Removal', enableBg: 'Enable background removal',
-    crTextTitle: 'Copyright (Text)', enableCrText: 'Enable text copyright',
-    crLabel: 'Text', posLabel: 'Position', sizeLabel: 'Size',
-    colorLabel: 'Color', opacityLabel: 'Opacity',
-    crLogoTitle: 'Copyright (Logo)', enableCrLogo: 'Enable logo watermark',
-    logoUpload: 'Click to select logo image (PNG recommended)',
-    logoPos: 'Position', logoSizeLabel: 'Size (%)', logoOpacityLabel: 'Opacity',
-    outputTitle: 'Output Settings', formatLabel: 'Format', qualityLabel: 'Quality',
-    selectAll: 'Select All',
-    processBtn: 'Start Batch Processing', downloadBtn: 'Download All',
-    addMore: 'Add More', clearBtn: 'Clear', progressText: 'Processing...',
-    statusPending: 'Pending', statusProcessing: 'Processing...',
-    statusDone: 'Done ✓', statusError: 'Error',
-    original: 'Original', processed: 'Processed',
-    posBR: 'Bottom Right', posBL: 'Bottom Left', posBC: 'Bottom Center',
-    posTR: 'Top Right', posTL: 'Top Left', posC: 'Center',
-    toastAdded: ' image(s) added',
-    toastDone: 'Processing complete!',
-    toastDownloading: 'Downloading...',
-    loadingModel: 'Loading AI model (first time may take a while)...',
-    planFree: 'Free Plan', planPro: '✦ PRO',
-    usageLabel: 'Remaining today:',
-    upgradeBtn: 'Upgrade to PRO',
-    pricingTitle: 'Choose Your Plan',
-    pricingSubtitle: 'Pick the plan that works best for you',
-    planFreeName: 'Free', planProName: 'PRO',
-    planFreeDesc: 'Perfect for trying out', planProDesc: 'For professionals',
-    perMonth: '/ mo',
-    feat1Free: '1 image per day', feat2Free: 'Background removal + copyright',
-    feat3Free: 'PNG / JPEG output', feat4Free: 'Ads included',
-    feat1Pro: 'Unlimited processing', feat2Pro: 'Background removal + copyright',
-    feat3Pro: 'PNG / JPEG output', feat4Pro: 'No ads',
-    currentPlan: 'Current Plan',
-    upgradeCta: 'Upgrade to PRO',
-    limitTitle: "You've reached today's free limit",
-    limitDesc: 'Upgrade to PRO (¥490/mo) for unlimited processing and no ads. Wait until tomorrow or upgrade now.',
-    limitCta: 'View PRO Plan (¥490/mo)',
-    limitDismiss: "I'll come back tomorrow",
-    footerUpgrade: 'Go unlimited with PRO',
-    limitReached: 'Daily limit reached',
-    welcomePro: 'Welcome to PRO!',
-    heroBadge: 'Limited Time Offer',
-    heroTitle: 'Go PRO — Unlimited access for just ¥490/mo',
-    heroDesc: 'Unlimited background removal & copyright insertion. Work faster in an ad-free environment.',
-    heroFeat1: 'Unlimited processing', heroFeat2: 'No ads', heroFeat3: 'Priority support',
-    heroBtn: '✦ Upgrade to PRO',
-    heroSub: 'Cancel anytime ・ Credit card accepted',
-  }
-};
+                <!-- File Count Info -->
+                <div id="fileCountInfo" style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem; display: none;">
+                    <span id="fileCountText"></span>
+                </div>
+            </div>
 
-let currentLang = 'ja';
+            <!-- Settings Panel -->
+            <div class="panel">
+                <h2 class="panel-title">
+                    <span>⚙️</span>
+                    <span id="settingsTitle"></span>
+                </h2>
 
-function setLang(lang) {
-  currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    if (i18n[lang][key]) el.textContent = i18n[lang][key];
-  });
-  document.querySelectorAll('[data-i18n-opt]').forEach(opt => {
-    const key = opt.dataset.i18nOpt;
-    if (i18n[lang][key]) opt.textContent = i18n[lang][key];
-  });
-  updateCardStatusTexts();
-  updateUsageBar();
-  updatePlanBadge();
-}
+                <!-- Background Removal Toggle -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="bgRemovalToggle" class="checkbox" checked>
+                            <span id="bgRemovalLabel"></span>
+                        </div>
+                    </label>
+                </div>
 
-function t(key) { return i18n[currentLang][key] || key; }
+                <!-- Output Format -->
+                <div class="form-group">
+                    <label class="form-label" id="outputFormatLabel"></label>
+                    <select id="outputFormat">
+                        <option value="png">PNG (Transparent)</option>
+                        <option value="jpeg">JPEG (White BG)</option>
+                    </select>
+                </div>
 
-// ================================================================
-//  Freemium / Usage Tracking
-// ================================================================
-function getTodayKey() { return 'bgr_usage_' + new Date().toISOString().slice(0, 10); }
-function getUsedToday() { return parseInt(localStorage.getItem(getTodayKey()) || '0', 10); }
-function addUsage(count) { localStorage.setItem(getTodayKey(), (getUsedToday() + count).toString()); updateUsageBar(); }
-function getRemainingToday() { return isPremium() ? Infinity : Math.max(0, CONFIG.DAILY_FREE_LIMIT - getUsedToday()); }
-function isPremium() { return localStorage.getItem('bgr_plan') === 'pro'; }
-function setPremium(val) { localStorage.setItem('bgr_plan', val ? 'pro' : 'free'); updatePlanBadge(); updateUsageBar(); updateAds(); updateHeroCta(); }
+                <!-- Copyright Text Settings -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="textToggle" class="checkbox">
+                            <span id="textOverlayLabel"></span>
+                        </div>
+                    </label>
+                </div>
 
-function updateUsageBar() {
-  const bar = document.getElementById('usageBar');
-  const fill = document.getElementById('usageFill');
-  const count = document.getElementById('usageCount');
-  if (isPremium()) { bar.classList.add('premium-hidden'); return; }
-  bar.classList.remove('premium-hidden');
-  const used = getUsedToday();
-  const remaining = CONFIG.DAILY_FREE_LIMIT - used;
-  const pct = Math.max(0, (remaining / CONFIG.DAILY_FREE_LIMIT) * 100);
-  fill.style.width = pct + '%';
-  fill.className = 'usage-fill' + (pct <= 20 ? ' danger' : pct <= 50 ? ' warning' : '');
-  count.textContent = `${Math.max(0, remaining)} / ${CONFIG.DAILY_FREE_LIMIT}`;
-}
+                <div id="textSettings" style="display: none; padding: 1rem; background: var(--accent); border-radius: 8px; margin-bottom: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" id="copyrightTextLabel"></label>
+                        <input type="text" id="copyrightText" placeholder="© 2024 VIERI">
+                    </div>
 
-function updatePlanBadge() {
-  const badge = document.getElementById('planBadge');
-  const icon = document.getElementById('planBadgeIcon');
-  const text = document.getElementById('planBadgeText');
-  if (isPremium()) { badge.className = 'plan-badge premium'; icon.textContent = '✦'; text.textContent = t('planPro'); }
-  else { badge.className = 'plan-badge free'; icon.textContent = '⚡'; text.textContent = t('planFree'); }
-}
+                    <div class="form-group">
+                        <label class="form-label" id="textColorLabel"></label>
+                        <input type="color" id="textColor" value="#ffffff">
+                    </div>
 
-function updateAds() {
-  const hide = isPremium();
-  document.getElementById('adHeader').classList.toggle('premium-hidden', hide);
-  document.getElementById('adFooter').classList.toggle('premium-hidden', hide);
-}
+                    <div class="form-group">
+                        <label class="form-label" id="textSizeLabel"></label>
+                        <div class="slider-group">
+                            <input type="range" id="textSize" min="10" max="100" value="40">
+                            <div class="value-display" id="textSizeValue">40px</div>
+                        </div>
+                    </div>
 
-function updateHeroCta() {
-  document.getElementById('heroCta').classList.toggle('premium-hidden', isPremium());
-}
+                    <div class="form-group">
+                        <label class="form-label" id="textOpacityLabel"></label>
+                        <div class="slider-group">
+                            <input type="range" id="textOpacity" min="0" max="100" value="80">
+                            <div class="value-display" id="textOpacityValue">80%</div>
+                        </div>
+                    </div>
 
-// ================================================================
-//  Pricing Modal
-// ================================================================
-function openPricingModal() { document.getElementById('pricingModal').classList.add('show'); }
-function closePricingModal() { document.getElementById('pricingModal').classList.remove('show'); }
-document.getElementById('pricingModal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closePricingModal(); });
+                    <div class="form-group">
+                        <label class="form-label" id="textPositionLabel"></label>
+                        <select id="textPosition">
+                            <option value="bottom-right" id="pos-br"></option>
+                            <option value="bottom-left" id="pos-bl"></option>
+                            <option value="top-right" id="pos-tr"></option>
+                            <option value="top-left" id="pos-tl"></option>
+                            <option value="center" id="pos-center"></option>
+                        </select>
+                    </div>
+                </div>
 
-// ================================================================
-//  Limit Overlay
-// ================================================================
-function showLimitOverlay() { document.getElementById('limitOverlay').classList.add('show'); }
-function closeLimitOverlay() { document.getElementById('limitOverlay').classList.remove('show'); }
+                <!-- Logo Settings -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="logoToggle" class="checkbox">
+                            <span id="logoOverlayLabel"></span>
+                        </div>
+                    </label>
+                </div>
 
-// ================================================================
-//  Stripe Checkout
-// ================================================================
-async function startStripeCheckout() {
-  const btn = document.getElementById('stripeCheckoutBtn');
-  btn.disabled = true; btn.textContent = '...';
-  try {
-    // Stripe Payment Links（サーバー不要・最も簡単）
-    window.open('https://buy.stripe.com/6oU9AT2169o46SG6EndZ600', '_blank');
-  } catch (err) {
-    console.error('Stripe error:', err);
-    showToast('Payment error. Please try again.');
-  } finally {
-    btn.disabled = false; btn.textContent = t('upgradeCta');
-  }
-}
+                <div id="logoSettings" style="display: none; padding: 1rem; background: var(--accent); border-radius: 8px; margin-bottom: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" id="logoUploadLabel"></label>
+                        <div class="upload-zone" id="logoUploadZone" style="padding: 1.5rem 1rem; border-width: 1px;">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🖼️</div>
+                            <div id="logoUploadText"></div>
+                        </div>
+                        <input type="file" id="logoInput" class="file-input" accept="image/*">
+                        <div id="logoFileName" style="margin-top: 0.5rem; color: var(--success); font-size: 0.85rem;"></div>
+                    </div>
 
-(function checkStripeReturn() {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('checkout') === 'success') {
-    setPremium(true);
-    showToast(t('welcomePro'));
-    window.history.replaceState({}, '', window.location.pathname);
-  }
-})();
+                    <div class="form-group">
+                        <label class="form-label" id="logoOpacityLabel"></label>
+                        <div class="slider-group">
+                            <input type="range" id="logoOpacity" min="0" max="100" value="80">
+                            <div class="value-display" id="logoOpacityValue">80%</div>
+                        </div>
+                    </div>
 
-// ================================================================
-//  Image State
-// ================================================================
-let images = [];
-let logoImage = null;
-let isProcessing = false;
+                    <div class="form-group">
+                        <label class="form-label" id="logoPositionLabel"></label>
+                        <select id="logoPosition">
+                            <option value="bottom-right" id="logPos-br"></option>
+                            <option value="bottom-left" id="logPos-bl"></option>
+                            <option value="top-right" id="logPos-tr"></option>
+                            <option value="top-left" id="logPos-tl"></option>
+                            <option value="center" id="logPos-center"></option>
+                        </select>
+                    </div>
 
-const uploadZone = document.getElementById('uploadZone');
-const fileInput = document.getElementById('fileInput');
+                    <div class="form-group">
+                        <label class="form-label" id="logoSizeLabel"></label>
+                        <div class="slider-group">
+                            <input type="range" id="logoSize" min="20" max="300" value="100">
+                            <div class="value-display" id="logoSizeValue">100px</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-uploadZone.addEventListener('click', () => fileInput.click());
-uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
-uploadZone.addEventListener('drop', (e) => { e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
-fileInput.addEventListener('change', (e) => { handleFiles(e.target.files); fileInput.value = ''; });
+        <!-- Process Button -->
+        <div class="button-group">
+            <button class="btn btn-primary" id="processBtn"></button>
+            <button class="btn btn-secondary" id="resetBtn"></button>
+        </div>
 
-function handleFiles(files) {
-  let count = 0;
-  for (const file of files) {
-    if (!file.type.startsWith('image/')) continue;
-    const id = Date.now() + '-' + Math.random().toString(36).substr(2, 6);
-    images.push({ id, file, originalUrl: URL.createObjectURL(file), processedUrl: null, processedBlob: null, status: 'pending', selected: true });
-    count++;
-  }
-  if (count > 0) { showToast(count + t('toastAdded')); renderImages(); updateUI(); }
-}
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            <span id="successText"></span>
+        </div>
 
-const logoUploadArea = document.getElementById('logoUploadArea');
-const logoInput = document.getElementById('logoInput');
-logoUploadArea.addEventListener('click', () => logoInput.click());
-logoInput.addEventListener('change', (e) => {
-  const file = e.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    const img = new Image(); img.onload = () => { logoImage = img; }; img.src = ev.target.result;
-    document.getElementById('logoPreviewContainer').innerHTML = `<img class="logo-preview" src="${ev.target.result}" alt="logo">`;
-  };
-  reader.readAsDataURL(file);
-});
+        <!-- Results Gallery -->
+        <div id="resultsSection" style="display: none;">
+            <h2 class="panel-title" style="margin-top: 2rem;">
+                <span>✅</span>
+                <span id="resultsTitle"></span>
+            </h2>
+            <div class="gallery" id="gallery"></div>
+        </div>
+    </div>
 
-function renderImages() {
-  const grid = document.getElementById('imageGrid'); grid.innerHTML = '';
-  images.forEach((img) => {
-    const card = document.createElement('div');
-    card.className = `image-card ${img.selected ? 'selected' : ''}`;
-    card.innerHTML = `
-      <div class="image-card-header"><span class="image-card-name" title="${img.file.name}">${img.file.name}</span><input type="checkbox" class="image-card-checkbox" ${img.selected ? 'checked' : ''} onchange="toggleSelect('${img.id}')"></div>
-      <div class="image-card-preview" id="preview-${img.id}"><img src="${img.processedUrl || img.originalUrl}" alt="">${img.status === 'processing' ? '<div class="spinner"></div>' : ''}${img.processedUrl ? `<div class="view-tabs"><button class="view-tab" onclick="showOriginal('${img.id}', this)">${t('original')}</button><button class="view-tab active" onclick="showProcessed('${img.id}', this)">${t('processed')}</button></div>` : ''}</div>
-      <div class="image-card-status status-${img.status}" data-status-id="${img.id}">${getStatusText(img.status)}</div>`;
-    grid.appendChild(card);
-  });
-}
+    <!-- AdSense Footer Slot -->
+    <div class="ads-footer">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-7090197458512511"
+             data-ad-slot="9876543210"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
-function getStatusText(s) { return { pending: t('statusPending'), processing: t('statusProcessing'), done: t('statusDone'), error: t('statusError') }[s] || s; }
-function updateCardStatusTexts() { images.forEach(img => { const el = document.querySelector(`[data-status-id="${img.id}"]`); if (el) el.textContent = getStatusText(img.status); }); }
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#privacy" id="privacyLink"></a>
+            <a href="#terms" id="termsLink"></a>
+            <a href="#contact" id="contactLink"></a>
+        </div>
+        <p>&copy; 2024 VIERI. All rights reserved.</p>
+    </footer>
 
-function showOriginal(id, btn) { const img = images.find(i => i.id === id); if (!img) return; document.querySelector(`#preview-${id} img`).src = img.originalUrl; btn.parentElement.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active')); btn.classList.add('active'); }
-function showProcessed(id, btn) { const img = images.find(i => i.id === id); if (!img || !img.processedUrl) return; document.querySelector(`#preview-${id} img`).src = img.processedUrl; btn.parentElement.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active')); btn.classList.add('active'); }
+    <!-- Pricing Modal -->
+    <div class="modal" id="pricingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="pricingTitle"></h2>
+                <button class="close-btn" id="closePricingModal">&times;</button>
+            </div>
 
-function toggleSelect(id) { const img = images.find(i => i.id === id); if (img) { img.selected = !img.selected; renderImages(); updateSelectionCount(); } }
-function toggleSelectAll() { const checked = document.getElementById('selectAllCheckbox').checked; images.forEach(img => img.selected = checked); renderImages(); updateSelectionCount(); }
-function updateSelectionCount() { const count = images.filter(i => i.selected).length; document.getElementById('selectionCount').textContent = `(${count}/${images.length})`; document.getElementById('selectAllCheckbox').checked = count === images.length; }
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name" id="freePlanName"></div>
+                    <div class="pricing-price" id="freePrice"></div>
+                    <ul class="pricing-features" id="freePlanFeatures"></ul>
+                    <button class="pricing-button" id="freeSelectBtn"></button>
+                </div>
 
-function updateUI() {
-  const hasImages = images.length > 0;
-  document.getElementById('settingsPanel').classList.toggle('show', hasImages);
-  document.getElementById('actionBar').classList.toggle('show', hasImages);
-  document.getElementById('selectAllBar').classList.toggle('show', hasImages);
-  updateSelectionCount();
-  document.getElementById('downloadBtn').disabled = !images.some(i => i.status === 'done');
-}
+                <div class="pricing-card pro">
+                    <div class="pricing-name" id="proPlanName"></div>
+                    <div class="pricing-price" id="proPrice"></div>
+                    <ul class="pricing-features" id="proPlanFeatures"></ul>
+                    <button class="pricing-button pro" id="proSelectBtn"></button>
+                </div>
+            </div>
 
-function clearAll() { images.forEach(img => { if (img.originalUrl) URL.revokeObjectURL(img.originalUrl); if (img.processedUrl) URL.revokeObjectURL(img.processedUrl); }); images = []; renderImages(); updateUI(); }
+            <div class="feature-comparison">
+                <h3 id="comparisonTitle"></h3>
+                <table class="comparison-table" id="comparisonTable">
+                    <thead>
+                        <tr>
+                            <th id="featureHeader"></th>
+                            <th id="freeHeader"></th>
+                            <th id="proHeader"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparisonBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-document.getElementById('copyrightSize').addEventListener('input', e => document.getElementById('sizeValue').textContent = e.target.value + 'px');
-document.getElementById('copyrightOpacity').addEventListener('input', e => document.getElementById('opacityValue').textContent = e.target.value + '%');
-document.getElementById('logoSize').addEventListener('input', e => document.getElementById('logoSizeValue').textContent = e.target.value + '%');
-document.getElementById('logoOpacity').addEventListener('input', e => document.getElementById('logoOpacityValue').textContent = e.target.value + '%');
-document.getElementById('jpegQuality').addEventListener('input', e => document.getElementById('qualityValue').textContent = e.target.value + '%');
-document.getElementById('outputFormat').addEventListener('change', e => document.getElementById('jpegQualityRow').style.display = e.target.value === 'jpeg' ? 'flex' : 'none');
+    <!-- Limit Reached Overlay -->
+    <div class="limit-overlay" id="limitOverlay">
+        <div class="limit-message">
+            <div class="limit-icon">🔒</div>
+            <h2 class="limit-title" id="limitTitle"></h2>
+            <p class="limit-text" id="limitText"></p>
+        </div>
+        <div class="limit-buttons">
+            <button class="btn btn-primary" id="upgradeLimitBtn"></button>
+            <button class="btn btn-secondary" id="closeLimitBtn"></button>
+        </div>
+    </div>
 
-// ================================================================
-//  Processing
-// ================================================================
-async function startProcessing() {
-  if (isProcessing) return;
-  const selected = images.filter(i => i.selected && i.status !== 'done');
-  if (selected.length === 0) return;
+    <!-- Background Removal Library -->
+    <script async src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@3.0.0/dist/index.umd.js"></script>
 
-  const remaining = getRemainingToday();
-  if (remaining <= 0) { showLimitOverlay(); return; }
+    <script>
+        // =========================
+        // CONFIG
+        // =========================
+        const CONFIG = {
+            DAILY_FREE_LIMIT: 1,
+            PRO_PRICE_JPY: 490,
+            STRIPE_PAYMENT_URL: 'https://buy.stripe.com/6oU9AT2169o46SG6EndZ600',
+        };
 
-  const toProcess = isPremium() ? selected : selected.slice(0, remaining);
-  if (toProcess.length < selected.length) showToast(`${t('limitReached')} (${toProcess.length}/${selected.length})`);
+        // =========================
+        // TRANSLATIONS
+        // =========================
+        const translations = {
+            ja: {
+                uploadTitle: '画像をアップロード',
+                uploadText: 'ここに画像をドラッグ＆ドロップ',
+                uploadHint: 'またはクリックしてファイルを選択',
+                settingsTitle: '設定',
+                bgRemovalLabel: '背景削除を有効にする',
+                outputFormatLabel: '出力形式',
+                textOverlayLabel: '著作権テキストを追加',
+                copyrightTextLabel: 'テキスト内容',
+                textColorLabel: 'テキスト色',
+                textSizeLabel: 'テキストサイズ',
+                textOpacityLabel: 'テキスト透明度',
+                textPositionLabel: 'テキスト位置',
+                logoOverlayLabel: 'ロゴ・ウォーターマークを追加',
+                logoUploadLabel: 'ロゴを選択',
+                logoUploadText: 'ロゴ画像をアップロード',
+                logoOpacityLabel: 'ロゴ透明度',
+                logoPositionLabel: 'ロゴ位置',
+                logoSizeLabel: 'ロゴサイズ',
+                processBtn: '処理を開始',
+                resetBtn: 'リセット',
+                resultsTitle: '処理完了',
+                downloadPNG: 'PNG ダウンロード',
+                downloadJPEG: 'JPEG ダウンロード',
+                successText: '✅ 画像の処理が完了しました！',
+                usageLabel: '本日の使用回数: {current}/{total}',
+                heroTitle: '制限に達しました',
+                heroSubtitle: 'PROプランで無制限に画像を処理',
+                heroPrice: '¥490/月',
+                heroCtaBtn: 'アップグレード',
+                pricingTitle: 'プラン選択',
+                freePlanName: 'フリー',
+                freePrice: '¥0',
+                proPlanName: 'PRO',
+                proPrice: '¥490/月',
+                freeSelectBtn: '現在のプラン',
+                proSelectBtn: '今すぐアップグレード',
+                comparisonTitle: '機能比較',
+                featureHeader: '機能',
+                freeHeader: 'フリー',
+                proHeader: 'PRO',
+                dailyLimit: '1日の処理制限',
+                bgRemovalFeature: 'AI背景削除',
+                copyrightText: '著作権テキスト追加',
+                logoWatermark: 'ロゴ・ウォーターマーク',
+                batchProcessing: 'バッチ処理',
+                ads: '広告表示',
+                unlimited: '無制限',
+                limited: '1枚/日',
+                included: 'あり',
+                notIncluded: 'なし',
+                ads_yes: 'あり',
+                ads_no: 'なし',
+                limitTitle: '制限に達しました',
+                limitText: 'フリープランでは1日に1枚までの処理ができます。明日再度処理できます。',
+                upgradeLimitBtn: 'PROにアップグレード',
+                closeLimitBtn: '閉じる',
+                privacyLink: 'プライバシー',
+                termsLink: '利用規約',
+                contactLink: 'お問い合わせ',
+                langToggle: 'English',
+                pos_br: '右下',
+                pos_bl: '左下',
+                pos_tr: '右上',
+                pos_tl: '左上',
+                pos_center: '中央',
+                fileCountText: '{count}個のファイルが選択されています',
+            },
+            en: {
+                uploadTitle: 'Upload Images',
+                uploadText: 'Drag & drop images here',
+                uploadHint: 'or click to select files',
+                settingsTitle: 'Settings',
+                bgRemovalLabel: 'Enable background removal',
+                outputFormatLabel: 'Output format',
+                textOverlayLabel: 'Add copyright text',
+                copyrightTextLabel: 'Text content',
+                textColorLabel: 'Text color',
+                textSizeLabel: 'Text size',
+                textOpacityLabel: 'Text opacity',
+                textPositionLabel: 'Text position',
+                logoOverlayLabel: 'Add logo/watermark',
+                logoUploadLabel: 'Select logo',
+                logoUploadText: 'Upload logo image',
+                logoOpacityLabel: 'Logo opacity',
+                logoPositionLabel: 'Logo position',
+                logoSizeLabel: 'Logo size',
+                processBtn: 'Start Processing',
+                resetBtn: 'Reset',
+                resultsTitle: 'Results',
+                downloadPNG: 'Download PNG',
+                downloadJPEG: 'Download JPEG',
+                successText: '✅ Processing complete!',
+                usageLabel: 'Usage today: {current}/{total}',
+                heroTitle: 'Limit reached',
+                heroSubtitle: 'Upgrade to PRO for unlimited processing',
+                heroPrice: '¥490/month',
+                heroCtaBtn: 'Upgrade',
+                pricingTitle: 'Select Plan',
+                freePlanName: 'Free',
+                freePrice: '¥0',
+                proPlanName: 'PRO',
+                proPrice: '¥490/month',
+                freeSelectBtn: 'Current Plan',
+                proSelectBtn: 'Upgrade Now',
+                comparisonTitle: 'Feature Comparison',
+                featureHeader: 'Feature',
+                freeHeader: 'Free',
+                proHeader: 'PRO',
+                dailyLimit: 'Daily processing limit',
+                bgRemovalFeature: 'AI background removal',
+                copyrightText: 'Copyright text overlay',
+                logoWatermark: 'Logo watermark',
+                batchProcessing: 'Batch processing',
+                ads: 'Ad display',
+                unlimited: 'Unlimited',
+                limited: '1 per day',
+                included: 'Included',
+                notIncluded: 'Not included',
+                ads_yes: 'Yes',
+                ads_no: 'No',
+                limitTitle: 'Limit reached',
+                limitText: 'Free plan allows 1 image per day. You can process again tomorrow.',
+                upgradeLimitBtn: 'Upgrade to PRO',
+                closeLimitBtn: 'Close',
+                privacyLink: 'Privacy',
+                termsLink: 'Terms',
+                contactLink: 'Contact',
+                langToggle: '日本語',
+                pos_br: 'Bottom right',
+                pos_bl: 'Bottom left',
+                pos_tr: 'Top right',
+                pos_tl: 'Top left',
+                pos_center: 'Center',
+                fileCountText: '{count} file(s) selected',
+            }
+        };
 
-  isProcessing = true;
-  document.getElementById('processBtn').disabled = true;
-  document.getElementById('progressContainer').classList.add('show');
-  const enableBg = document.getElementById('enableBgRemoval').checked;
-  let processed = 0;
+        // =========================
+        // STATE MANAGEMENT
+        // =========================
+        let currentLanguage = localStorage.getItem('language') || 'ja';
+        let isPRO = new URLSearchParams(window.location.search).has('pro');
+        let selectedFiles = [];
+        let logoImage = null;
+        let processedResults = [];
 
-  for (const img of toProcess) {
-    img.status = 'processing'; renderImages();
-    try {
-      let canvas = await loadImageToCanvas(img.originalUrl);
-      if (enableBg) { updateProgress(processed, toProcess.length, t('loadingModel')); canvas = await removeBackground(canvas, img.file); }
-      if (document.getElementById('enableCopyrightText').checked) applyCopyrightText(canvas);
-      if (document.getElementById('enableCopyrightLogo').checked && logoImage) applyCopyrightLogo(canvas);
+        // Persist PRO status
+        if (isPRO) {
+            localStorage.setItem('isPRO', 'true');
+        } else {
+            isPRO = localStorage.getItem('isPRO') === 'true';
+        }
 
-      const format = document.getElementById('outputFormat').value;
-      const quality = parseInt(document.getElementById('jpegQuality').value) / 100;
-      const blob = await new Promise(resolve => canvas.toBlob(resolve, format === 'jpeg' ? 'image/jpeg' : 'image/png', quality));
-      img.processedBlob = blob; img.processedUrl = URL.createObjectURL(blob); img.status = 'done';
-      if (!isPremium()) addUsage(1);
-    } catch (err) { console.error('Processing error:', err); img.status = 'error'; }
-    processed++; updateProgress(processed, toProcess.length); renderImages();
-  }
+        // =========================
+        // TRANSLATION FUNCTION
+        // =========================
+        function t(key) {
+            let text = translations[currentLanguage][key] || key;
 
-  isProcessing = false;
-  document.getElementById('processBtn').disabled = false;
-  document.getElementById('progressContainer').classList.remove('show');
-  updateUI(); showToast(t('toastDone'));
-  if (!isPremium() && getRemainingToday() <= 0 && selected.length > toProcess.length) setTimeout(showLimitOverlay, 500);
-}
+            // Support parameterized translations
+            arguments.length > 1 && Object.keys(arguments).slice(1).forEach((i) => {
+                text = text.replace(`{${Object.keys(arguments)[i]}}`, arguments[i]);
+            });
 
-function updateProgress(current, total, text) {
-  const pct = Math.round((current / total) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressPercent').textContent = pct + '%';
-  document.getElementById('progressText').textContent = text || `${current} / ${total}`;
-}
+            return text;
+        }
 
-function loadImageToCanvas(url) {
-  return new Promise((resolve, reject) => {
-    const img = new Image(); img.crossOrigin = 'anonymous';
-    img.onload = () => { const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight; c.getContext('2d').drawImage(img, 0, 0); resolve(c); };
-    img.onerror = reject; img.src = url;
-  });
-}
+        // Better parameter replacement
+        function tParam(key, params) {
+            let text = translations[currentLanguage][key] || key;
+            Object.keys(params).forEach(param => {
+                text = text.replace(`{${param}}`, params[param]);
+            });
+            return text;
+        }
 
-async function removeBackground(canvas, file) {
-  const resultBlob = await imglyRemoveBackground(file, { publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/dist/' });
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => { const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight; c.getContext('2d').drawImage(img, 0, 0); resolve(c); };
-    img.onerror = reject; img.src = URL.createObjectURL(resultBlob);
-  });
-}
+        // =========================
+        // UI INITIALIZATION
+        // =========================
+        function initUI() {
+            // Update all UI text
+            document.getElementById('uploadTitle').textContent = t('uploadTitle');
+            document.getElementById('uploadText').textContent = t('uploadText');
+            document.getElementById('uploadHint').textContent = t('uploadHint');
+            document.getElementById('settingsTitle').textContent = t('settingsTitle');
+            document.getElementById('bgRemovalLabel').textContent = t('bgRemovalLabel');
+            document.getElementById('outputFormatLabel').textContent = t('outputFormatLabel');
+            document.getElementById('textOverlayLabel').textContent = t('textOverlayLabel');
+            document.getElementById('copyrightTextLabel').textContent = t('copyrightTextLabel');
+            document.getElementById('textColorLabel').textContent = t('textColorLabel');
+            document.getElementById('textSizeLabel').textContent = t('textSizeLabel');
+            document.getElementById('textOpacityLabel').textContent = t('textOpacityLabel');
+            document.getElementById('textPositionLabel').textContent = t('textPositionLabel');
+            document.getElementById('logoOverlayLabel').textContent = t('logoOverlayLabel');
+            document.getElementById('logoUploadLabel').textContent = t('logoUploadLabel');
+            document.getElementById('logoUploadText').textContent = t('logoUploadText');
+            document.getElementById('logoOpacityLabel').textContent = t('logoOpacityLabel');
+            document.getElementById('logoPositionLabel').textContent = t('logoPositionLabel');
+            document.getElementById('logoSizeLabel').textContent = t('logoSizeLabel');
+            document.getElementById('processBtn').textContent = t('processBtn');
+            document.getElementById('resetBtn').textContent = t('resetBtn');
+            document.getElementById('resultsTitle').textContent = t('resultsTitle');
+            document.getElementById('successText').textContent = t('successText');
+            document.getElementById('pricingTitle').textContent = t('pricingTitle');
+            document.getElementById('freePlanName').textContent = t('freePlanName');
+            document.getElementById('freePrice').textContent = t('freePrice');
+            document.getElementById('proPlanName').textContent = t('proPlanName');
+            document.getElementById('proPrice').textContent = t('proPrice');
+            document.getElementById('freeSelectBtn').textContent = t('freeSelectBtn');
+            document.getElementById('proSelectBtn').textContent = t('proSelectBtn');
+            document.getElementById('comparisonTitle').textContent = t('comparisonTitle');
+            document.getElementById('featureHeader').textContent = t('featureHeader');
+            document.getElementById('freeHeader').textContent = t('freeHeader');
+            document.getElementById('proHeader').textContent = t('proHeader');
+            document.getElementById('limitTitle').textContent = t('limitTitle');
+            document.getElementById('limitText').textContent = t('limitText');
+            document.getElementById('upgradeLimitBtn').textContent = t('upgradeLimitBtn');
+            document.getElementById('closeLimitBtn').textContent = t('closeLimitBtn');
+            document.getElementById('privacyLink').textContent = t('privacyLink');
+            document.getElementById('termsLink').textContent = t('termsLink');
+            document.getElementById('contactLink').textContent = t('contactLink');
+            document.getElementById('langToggle').textContent = t('langToggle');
+            document.getElementById('heroTitle').textContent = t('heroTitle');
+            document.getElementById('heroSubtitle').textContent = t('heroSubtitle');
+            document.getElementById('heroPrice').textContent = t('heroPrice');
+            document.getElementById('heroCtaBtn').textContent = t('heroCtaBtn');
 
-function applyCopyrightText(canvas) {
-  const ctx = canvas.getContext('2d'); const text = document.getElementById('copyrightText').value; if (!text) return;
-  const fontSize = parseInt(document.getElementById('copyrightSize').value);
-  const scaledSize = Math.max(12, Math.round(fontSize * (canvas.width / 800)));
-  const color = document.getElementById('copyrightColor').value;
-  const opacity = parseInt(document.getElementById('copyrightOpacity').value) / 100;
-  const position = document.getElementById('copyrightPosition').value;
-  ctx.save(); ctx.globalAlpha = opacity;
-  ctx.font = `${scaledSize}px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
-  ctx.fillStyle = color; ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = scaledSize * 0.2; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 1;
-  const padding = scaledSize; let x, y;
-  switch (position) {
-    case 'bottom-right': ctx.textAlign = 'right'; x = canvas.width - padding; y = canvas.height - padding; break;
-    case 'bottom-left': ctx.textAlign = 'left'; x = padding; y = canvas.height - padding; break;
-    case 'bottom-center': ctx.textAlign = 'center'; x = canvas.width / 2; y = canvas.height - padding; break;
-    case 'top-right': ctx.textAlign = 'right'; x = canvas.width - padding; y = padding + scaledSize; break;
-    case 'top-left': ctx.textAlign = 'left'; x = padding; y = padding + scaledSize; break;
-    case 'center': ctx.textAlign = 'center'; x = canvas.width / 2; y = canvas.height / 2; break;
-  }
-  ctx.fillText(text, x, y); ctx.restore();
-}
+            // Position options
+            document.getElementById('pos-br').textContent = t('pos_br');
+            document.getElementById('pos-bl').textContent = t('pos_bl');
+            document.getElementById('pos-tr').textContent = t('pos_tr');
+            document.getElementById('pos-tl').textContent = t('pos_tl');
+            document.getElementById('pos-center').textContent = t('pos_center');
+            document.getElementById('logPos-br').textContent = t('pos_br');
+            document.getElementById('logPos-bl').textContent = t('pos_bl');
+            document.getElementById('logPos-tr').textContent = t('pos_tr');
+            document.getElementById('logPos-tl').textContent = t('pos_tl');
+            document.getElementById('logPos-center').textContent = t('pos_center');
 
-function applyCopyrightLogo(canvas) {
-  if (!logoImage) return; const ctx = canvas.getContext('2d');
-  const sizePercent = parseInt(document.getElementById('logoSize').value) / 100;
-  const opacity = parseInt(document.getElementById('logoOpacity').value) / 100;
-  const position = document.getElementById('logoPosition').value;
-  const logoW = canvas.width * sizePercent; const logoH = (logoImage.height / logoImage.width) * logoW; const padding = 20;
-  let x, y;
-  switch (position) {
-    case 'bottom-right': x = canvas.width - logoW - padding; y = canvas.height - logoH - padding; break;
-    case 'bottom-left': x = padding; y = canvas.height - logoH - padding; break;
-    case 'bottom-center': x = (canvas.width - logoW) / 2; y = canvas.height - logoH - padding; break;
-    case 'top-right': x = canvas.width - logoW - padding; y = padding; break;
-    case 'top-left': x = padding; y = padding; break;
-    case 'center': x = (canvas.width - logoW) / 2; y = (canvas.height - logoH) / 2; break;
-  }
-  ctx.save(); ctx.globalAlpha = opacity; ctx.drawImage(logoImage, x, y, logoW, logoH); ctx.restore();
-}
+            // Update usage bar
+            updateUsageBar();
 
-async function downloadAll() {
-  const doneImages = images.filter(i => i.status === 'done' && i.processedBlob); if (doneImages.length === 0) return;
-  showToast(t('toastDownloading'));
-  for (const img of doneImages) { downloadSingle(img); await new Promise(r => setTimeout(r, 300)); }
-}
+            // Update UI visibility based on PRO status
+            updateProUI();
 
-function downloadSingle(img) {
-  const format = document.getElementById('outputFormat').value;
-  const ext = format === 'jpeg' ? '.jpg' : '.png';
-  const a = document.createElement('a'); a.href = img.processedUrl; a.download = img.file.name.replace(/\.[^.]+$/, '') + '_processed' + ext; a.click();
-}
+            // Build comparison table
+            buildComparisonTable();
+        }
 
-function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3000); }
+        function updateUsageBar() {
+            const usage = getDailyUsage();
+            const label = tParam('usageLabel', { current: usage, total: CONFIG.DAILY_FREE_LIMIT });
+            document.getElementById('usageLabel').textContent = label;
 
-// ---- Init ----
-updateUI(); updateUsageBar(); updatePlanBadge(); updateAds(); updateHeroCta();
-</script>
+            const percentage = (usage / CONFIG.DAILY_FREE_LIMIT) * 100;
+            const fill = document.getElementById('usageFill');
+            fill.style.width = percentage + '%';
+            fill.textContent = `${usage}/${CONFIG.DAILY_FREE_LIMIT}`;
+        }
+
+        function updateProUI() {
+            const heroBanner = document.getElementById('heroBanner');
+            const usageSection = document.getElementById('usageSection');
+            const processBtn = document.getElementById('processBtn');
+
+            if (isPRO) {
+                heroBanner.classList.add('hidden');
+                usageSection.classList.add('hidden');
+            } else {
+                heroBanner.classList.remove('hidden');
+                usageSection.classList.remove('hidden');
+            }
+        }
+
+        function buildComparisonTable() {
+            const tbody = document.getElementById('comparisonBody');
+            tbody.innerHTML = '';
+
+            const features = [
+                { name: 'dailyLimit', free: t('limited'), pro: t('unlimited') },
+                { name: 'bgRemovalFeature', free: t('included'), pro: t('included') },
+                { name: 'copyrightText', free: t('included'), pro: t('included') },
+                { name: 'logoWatermark', free: t('included'), pro: t('included') },
+                { name: 'batchProcessing', free: t('included'), pro: t('included') },
+                { name: 'ads', free: t('ads_yes'), pro: t('ads_no') },
+            ];
+
+            features.forEach(feature => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${t(feature.name)}</td>
+                    <td>${feature.free}</td>
+                    <td class="check-mark">${feature.pro}</td>
+                `;
+            });
+        }
+
+        // =========================
+        // DAILY USAGE TRACKING
+        // =========================
+        function getDailyUsage() {
+            const today = new Date().toDateString();
+            const stored = JSON.parse(localStorage.getItem('dailyUsage') || '{}');
+
+            if (stored.date !== today) {
+                return 0;
+            }
+
+            return stored.count || 0;
+        }
+
+        function incrementDailyUsage() {
+            const today = new Date().toDateString();
+            const stored = JSON.parse(localStorage.getItem('dailyUsage') || '{}');
+
+            if (stored.date !== today) {
+                stored.date = today;
+                stored.count = 0;
+            }
+
+            stored.count++;
+            localStorage.setItem('dailyUsage', JSON.stringify(stored));
+        }
+
+        function canProcessImage() {
+            if (isPRO) return true;
+            return getDailyUsage() < CONFIG.DAILY_FREE_LIMIT;
+        }
+
+        // =========================
+        // FILE HANDLING
+        // =========================
+        function setupFileHandling() {
+            const uploadZone = document.getElementById('uploadZone');
+            const fileInput = document.getElementById('fileInput');
+            const logoZone = document.getElementById('logoUploadZone');
+            const logoInput = document.getElementById('logoInput');
+
+            // Upload zone - main images
+            uploadZone.addEventListener('click', () => fileInput.click());
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.classList.add('dragover');
+            });
+            uploadZone.addEventListener('dragleave', () => {
+                uploadZone.classList.remove('dragover');
+            });
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.classList.remove('dragover');
+                handleFileSelect(e.dataTransfer.files);
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                handleFileSelect(e.target.files);
+            });
+
+            // Logo zone
+            logoZone.addEventListener('click', () => logoInput.click());
+            logoZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                logoZone.classList.add('dragover');
+            });
+            logoZone.addEventListener('dragleave', () => {
+                logoZone.classList.remove('dragover');
+            });
+            logoZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                logoZone.classList.remove('dragover');
+                if (e.dataTransfer.files.length > 0) {
+                    handleLogoSelect(e.dataTransfer.files[0]);
+                }
+            });
+
+            logoInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleLogoSelect(e.target.files[0]);
+                }
+            });
+        }
+
+        function handleFileSelect(files) {
+            selectedFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+
+            if (selectedFiles.length > 0) {
+                const fileCountInfo = document.getElementById('fileCountInfo');
+                fileCountInfo.style.display = 'block';
+                document.getElementById('fileCountText').textContent = tParam('fileCountText', { count: selectedFiles.length });
+            }
+        }
+
+        function handleLogoSelect(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    logoImage = img;
+                    document.getElementById('logoFileName').textContent = `✓ ${file.name}`;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // =========================
+        // SETTINGS HANDLERS
+        // =========================
+        function setupSettingsHandlers() {
+            // Text toggle
+            document.getElementById('textToggle').addEventListener('change', (e) => {
+                document.getElementById('textSettings').style.display = e.target.checked ? 'block' : 'none';
+            });
+
+            // Logo toggle
+            document.getElementById('logoToggle').addEventListener('change', (e) => {
+                document.getElementById('logoSettings').style.display = e.target.checked ? 'block' : 'none';
+            });
+
+            // Text size slider
+            document.getElementById('textSize').addEventListener('input', (e) => {
+                document.getElementById('textSizeValue').textContent = e.target.value + 'px';
+            });
+
+            // Text opacity slider
+            document.getElementById('textOpacity').addEventListener('input', (e) => {
+                document.getElementById('textOpacityValue').textContent = e.target.value + '%';
+            });
+
+            // Logo opacity slider
+            document.getElementById('logoOpacity').addEventListener('input', (e) => {
+                document.getElementById('logoOpacityValue').textContent = e.target.value + '%';
+            });
+
+            // Logo size slider
+            document.getElementById('logoSize').addEventListener('input', (e) => {
+                document.getElementById('logoSizeValue').textContent = e.target.value + 'px';
+            });
+        }
+
+        // =========================
+        // IMAGE PROCESSING
+        // =========================
+        async function processImage(file) {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+
+            return new Promise((resolve) => {
+                img.onload = async () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+
+                    // Draw original image
+                    ctx.drawImage(img, 0, 0);
+
+                    // Remove background if enabled
+                    if (document.getElementById('bgRemovalToggle').checked) {
+                        try {
+                            const imglyRemoval = window.removeBackground || window.imgly?.removeBackground;
+                            if (imglyRemoval) {
+                                const blob = await imglyRemoval(canvas);
+                                const bgRemovedImg = new Image();
+                                bgRemovedImg.onload = () => {
+                                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                    ctx.drawImage(bgRemovedImg, 0, 0);
+                                    applyOverlays(canvas, ctx);
+                                    resolve(canvas);
+                                };
+                                bgRemovedImg.src = URL.createObjectURL(blob);
+                            } else {
+                                applyOverlays(canvas, ctx);
+                                resolve(canvas);
+                            }
+                        } catch (e) {
+                            console.log('Background removal not available, continuing without it');
+                            applyOverlays(canvas, ctx);
+                            resolve(canvas);
+                        }
+                    } else {
+                        applyOverlays(canvas, ctx);
+                        resolve(canvas);
+                    }
+                };
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function applyOverlays(canvas, ctx) {
+            const width = canvas.width;
+            const height = canvas.height;
+
+            // Apply copyright text
+            if (document.getElementById('textToggle').checked) {
+                const text = document.getElementById('copyrightText').value || '© VIERI';
+                const fontSize = parseInt(document.getElementById('textSize').value);
+                const color = document.getElementById('textColor').value;
+                const opacity = parseInt(document.getElementById('textOpacity').value) / 100;
+                const position = document.getElementById('textPosition').value;
+
+                ctx.font = `bold ${fontSize}px Arial`;
+                ctx.fillStyle = hexToRgba(color, opacity);
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'bottom';
+
+                const padding = 20;
+                let x, y;
+
+                switch(position) {
+                    case 'bottom-right':
+                        x = width - padding;
+                        y = height - padding;
+                        break;
+                    case 'bottom-left':
+                        ctx.textAlign = 'left';
+                        x = padding;
+                        y = height - padding;
+                        break;
+                    case 'top-right':
+                        x = width - padding;
+                        y = padding + fontSize;
+                        break;
+                    case 'top-left':
+                        ctx.textAlign = 'left';
+                        x = padding;
+                        y = padding + fontSize;
+                        break;
+                    case 'center':
+                        ctx.textAlign = 'center';
+                        x = width / 2;
+                        y = height / 2;
+                        break;
+                }
+
+                ctx.fillText(text, x, y);
+            }
+
+            // Apply logo
+            if (document.getElementById('logoToggle').checked && logoImage) {
+                const opacity = parseInt(document.getElementById('logoOpacity').value) / 100;
+                const position = document.getElementById('logoPosition').value;
+                const size = parseInt(document.getElementById('logoSize').value);
+
+                ctx.globalAlpha = opacity;
+
+                const padding = 20;
+                let x, y;
+                const aspectRatio = logoImage.width / logoImage.height;
+                const logoWidth = size;
+                const logoHeight = size / aspectRatio;
+
+                switch(position) {
+                    case 'bottom-right':
+                        x = width - logoWidth - padding;
+                        y = height - logoHeight - padding;
+                        break;
+                    case 'bottom-left':
+                        x = padding;
+                        y = height - logoHeight - padding;
+                        break;
+                    case 'top-right':
+                        x = width - logoWidth - padding;
+                        y = padding;
+                        break;
+                    case 'top-left':
+                        x = padding;
+                        y = padding;
+                        break;
+                    case 'center':
+                        x = (width - logoWidth) / 2;
+                        y = (height - logoHeight) / 2;
+                        break;
+                }
+
+                ctx.drawImage(logoImage, x, y, logoWidth, logoHeight);
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function hexToRgba(hex, alpha) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        // =========================
+        // PROCESSING BUTTON
+        // =========================
+        async function handleProcess() {
+            if (selectedFiles.length === 0) {
+                alert(currentLanguage === 'ja' ? '画像を選択してください' : 'Please select images');
+                return;
+            }
+
+            // Check daily limit
+            if (!canProcessImage()) {
+                document.getElementById('limitOverlay').classList.add('active');
+                return;
+            }
+
+            const processBtn = document.getElementById('processBtn');
+            processBtn.disabled = true;
+            processBtn.innerHTML = '<span class="loading"></span>' + t('processBtn');
+
+            processedResults = [];
+
+            try {
+                for (const file of selectedFiles) {
+                    const canvas = await processImage(file);
+
+                    // Generate both formats
+                    const pngBlob = await canvasToBlob(canvas, 'image/png');
+                    const jpegBlob = await canvasToBlob(canvas, 'image/jpeg');
+
+                    processedResults.push({
+                        name: file.name,
+                        png: pngBlob,
+                        jpeg: jpegBlob,
+                        canvas: canvas
+                    });
+
+                    if (!isPRO) {
+                        incrementDailyUsage();
+                        updateUsageBar();
+                    }
+                }
+
+                // Show results
+                displayResults();
+                document.getElementById('successMessage').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.remove('show');
+                }, 3000);
+
+            } catch (error) {
+                console.error('Processing error:', error);
+                alert(currentLanguage === 'ja' ? '処理に失敗しました' : 'Processing failed');
+            } finally {
+                processBtn.disabled = false;
+                processBtn.innerHTML = t('processBtn');
+            }
+        }
+
+        function canvasToBlob(canvas, type) {
+            return new Promise(resolve => {
+                canvas.toBlob(resolve, type);
+            });
+        }
+
+        function displayResults() {
+            const gallery = document.getElementById('gallery');
+            const resultsSection = document.getElementById('resultsSection');
+
+            gallery.innerHTML = '';
+
+            processedResults.forEach((result, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+
+                // Create preview (PNG)
+                const previewUrl = URL.createObjectURL(result.png);
+                item.innerHTML = `
+                    <img class="gallery-image" src="${previewUrl}" alt="${result.name}">
+                    <div class="gallery-actions">
+                        <div class="gallery-label">${result.name}</div>
+                        <div class="download-btns">
+                            <button class="download-btn" data-index="${index}" data-format="png">PNG</button>
+                            <button class="download-btn" data-index="${index}" data-format="jpeg">JPEG</button>
+                        </div>
+                    </div>
+                `;
+
+                gallery.appendChild(item);
+            });
+
+            // Add download handlers
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    const format = e.target.dataset.format;
+                    downloadResult(index, format);
+                });
+            });
+
+            resultsSection.style.display = 'block';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadResult(index, format) {
+            const result = processedResults[index];
+            const blob = format === 'png' ? result.png : result.jpeg;
+            const ext = format === 'png' ? 'png' : 'jpg';
+            const name = result.name.split('.')[0] + '_processed.' + ext;
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // =========================
+        // RESET FUNCTION
+        // =========================
+        function handleReset() {
+            selectedFiles = [];
+            logoImage = null;
+            document.getElementById('fileInput').value = '';
+            document.getElementById('logoInput').value = '';
+            document.getElementById('logoFileName').textContent = '';
+            document.getElementById('fileCountInfo').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('gallery').innerHTML = '';
+        }
+
+        // =========================
+        // LANGUAGE TOGGLE
+        // =========================
+        function setupLanguageToggle() {
+            document.getElementById('langToggle').addEventListener('click', () => {
+                currentLanguage = currentLanguage === 'ja' ? 'en' : 'ja';
+                localStorage.setItem('language', currentLanguage);
+                initUI();
+            });
+        }
+
+        // =========================
+        // MODAL HANDLERS
+        // =========================
+        function setupModalHandlers() {
+            const pricingModal = document.getElementById('pricingModal');
+
+            // Open pricing modal
+            const openPricingBtns = [
+                document.getElementById('heroCtaBtn'),
+                document.getElementById('upgradeLimitBtn')
+            ];
+
+            openPricingBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    pricingModal.classList.add('active');
+                });
+            });
+
+            // Close modal
+            document.getElementById('closePricingModal').addEventListener('click', () => {
+                pricingModal.classList.remove('active');
+            });
+
+            document.getElementById('closeLimitBtn').addEventListener('click', () => {
+                document.getElementById('limitOverlay').classList.remove('active');
+            });
+
+            // PRO selection
+            document.getElementById('proSelectBtn').addEventListener('click', () => {
+                window.open(CONFIG.STRIPE_PAYMENT_URL, '_blank');
+            });
+
+            // Click outside to close
+            pricingModal.addEventListener('click', (e) => {
+                if (e.target === pricingModal) {
+                    pricingModal.classList.remove('active');
+                }
+            });
+
+            document.getElementById('limitOverlay').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('limitOverlay')) {
+                    document.getElementById('limitOverlay').classList.remove('active');
+                }
+            });
+        }
+
+        // =========================
+        // BUTTON HANDLERS
+        // =========================
+        function setupButtonHandlers() {
+            document.getElementById('processBtn').addEventListener('click', handleProcess);
+            document.getElementById('resetBtn').addEventListener('click', handleReset);
+        }
+
+        // =========================
+        // SERVICE WORKER REGISTRATION
+        // =========================
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js').catch(err => {
+                    console.log('SW registration failed:', err);
+                });
+            }
+        }
+
+        // =========================
+        // INITIALIZATION
+        // =========================
+        document.addEventListener('DOMContentLoaded', () => {
+            initUI();
+            setupFileHandling();
+            setupSettingsHandlers();
+            setupLanguageToggle();
+            setupModalHandlers();
+            setupButtonHandlers();
+            registerServiceWorker();
+        });
+    </script>
 </body>
 </html>
