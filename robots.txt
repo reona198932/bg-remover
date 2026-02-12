@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://reona198932.github.io/bg-remover/sitemap.xml
